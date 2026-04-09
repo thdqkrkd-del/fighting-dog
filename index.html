@@ -47,8 +47,8 @@
         .btn-outline:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.3); }
 
         .pin-active { color: #ef4444; }
-        .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in { animation: fadeIn 0.8s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         .attr-fire { background-color: #dc2626; }
         .attr-water { background-color: #2563eb; }
@@ -80,6 +80,20 @@
         #loading-overlay {
             position: fixed; inset: 0; background: #050505; z-index: 9999;
             display: flex; align-items: center; justify-content: center;
+        }
+
+        .hero-logo-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+        }
+        .hero-logo {
+            max-width: 90%;
+            width: 600px;
+            height: auto;
+            filter: drop-shadow(0 0 40px rgba(220, 38, 38, 0.6));
         }
     </style>
 </head>
@@ -116,11 +130,10 @@
 
     <!-- Templates -->
     <script id="tpl-home" type="text/template">
-        <section class="hero-gradient min-h-[50vh] flex items-center justify-center text-center px-6">
-            <div class="max-w-4xl animate-fade-in">
-                <h2 class="text-red-200 font-bold tracking-[0.3em] uppercase mb-4 text-sm">Official Community</h2>
-                <h1 class="text-6xl md:text-8xl font-bold mb-8 logo-font italic">FIGHTING DOG</h1>
-                <p class="text-red-100/80 mb-12 max-w-2xl mx-auto text-xl tracking-wider">Elite Combat Syndicate</p>
+        <section class="hero-gradient min-h-[60vh] flex items-center justify-center text-center px-6">
+            <div class="max-w-4xl animate-fade-in hero-logo-container">
+                <img src="c277ff29-ed70-43b8-a754-265cb540afa9.jpeg" alt="FIGHTING DOG LOGO" class="hero-logo" onerror="this.style.display='none'; document.getElementById('logo-text-fallback').style.display='block';">
+                <div id="logo-text-fallback" style="display:none;" class="text-7xl font-black italic logo-font text-red-600">FIGHTING DOG</div>
             </div>
         </section>
         <section class="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -158,6 +171,7 @@
         </div>
     </script>
 
+    <!-- Post Details Modal Template (Injectable) -->
     <script id="tpl-records" type="text/template">
         <div class="max-w-7xl mx-auto px-6 py-8 animate-fade-in">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
@@ -252,7 +266,6 @@
         const auth = getAuth(app);
         const appId = 'fighting-dog-production';
 
-        // --- Initial Seed Data from image_34014e.png ---
         const initialCharacters = [
             { name: "신마적", attrs: ["화", "풍"] }, { name: "리비노", attrs: ["수", "지"] }, { name: "구마적", attrs: ["수"] },
             { name: "마아란", attrs: ["수", "지"] }, { name: "안기로", attrs: ["수", "지"] }, { name: "봉타류", attrs: ["지"] },
@@ -307,7 +320,6 @@
             { name: "백일홍", attrs: ["수", "화"] }, { name: "졸", attrs: ["수", "지"] }
         ];
 
-        // --- State Management ---
         let currentState = {
             currentPage: 'home',
             isAuthorized: false,
@@ -327,9 +339,8 @@
 
         const safeCreateIcons = () => { if (typeof lucide !== 'undefined') { lucide.createIcons(); } };
 
-        // --- DB Sync Functions ---
         async function initSync() {
-            const collectionMapping = {
+            const mapping = {
                 'schedules': 'schedules',
                 'notices': 'notices',
                 'resources': 'resources',
@@ -340,7 +351,7 @@
                 'extraInfo': 'extraInfo'
             };
             
-            Object.keys(collectionMapping).forEach(colName => {
+            Object.keys(mapping).forEach(colName => {
                 const q = query(collection(db, 'artifacts', appId, 'public', 'data', colName));
                 onSnapshot(q, (snapshot) => {
                     const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -359,12 +370,10 @@
                 }, (error) => console.error(`Error syncing ${colName}:`, error));
             });
 
-            // One-time Check: Seed Characters if empty
             const charSnapshot = await getDocs(collection(db, 'artifacts', appId, 'public', 'data', 'characters'));
             if (charSnapshot.empty) {
-                console.log("Seeding characters...");
                 const batch = writeBatch(db);
-                initialCharacters.forEach((char, index) => {
+                initialCharacters.forEach((char) => {
                     const docRef = doc(collection(db, 'artifacts', appId, 'public', 'data', 'characters'));
                     batch.set(docRef, { ...char, type: 'attr' });
                 });
@@ -430,12 +439,8 @@
         }
 
         function initBoard(type) {
-            const titleEl = document.getElementById('board-title');
-            if (titleEl) titleEl.innerText = type === 'notice' ? '공지사항' : '자료실';
-            
             const collectionName = type === 'notice' ? 'notices' : 'resources';
             const data = currentState[collectionName] || [];
-            
             const sorted = [...data].sort((a,b) => b.pinned - a.pinned);
             const contentEl = document.getElementById('board-content');
             if (contentEl) contentEl.innerHTML = sorted.map(item => `
@@ -570,8 +575,6 @@
             if (!grid) return;
             const page = currentState.currentPage;
             let data = page === 'attributes' ? currentState.characters : currentState.extraInfo.filter(i => i.type === page);
-            
-            // Sort by name for easier navigation in the long list
             data.sort((a,b) => a.name.localeCompare(b.name, 'ko'));
 
             grid.innerHTML = data.map(item => `
@@ -597,8 +600,8 @@
             let html = '';
             if (type === 'board') {
                 const isNotice = currentState.currentPage === 'notice';
-                const collectionName = isNotice ? 'notices' : 'resources';
-                const item = extra ? currentState[collectionName].find(i => i.id === extra) : null;
+                const colName = isNotice ? 'notices' : 'resources';
+                const item = extra ? currentState[colName].find(i => i.id === extra) : null;
                 currentState.editingId = extra;
                 html = `<h3 class="text-2xl font-bold mb-6">${extra ? '게시물 수정' : '새 게시물 작성'}</h3>
                     <div class="space-y-4">
@@ -606,7 +609,7 @@
                         <textarea id="m-content" placeholder="내용" class="w-full bg-white/5 border border-white/10 rounded-lg p-3 h-48 focus:border-red-500 outline-none">${item?.content || ''}</textarea>
                         
                         <div class="p-4 bg-white/5 border border-dashed border-white/20 rounded-lg">
-                            <p class="text-xs text-gray-500 mb-2 font-bold flex items-center gap-2"><i data-lucide="paperclip" size="14"></i> 파일 첨부</p>
+                            <p class="text-xs text-gray-500 mb-2 font-bold flex items-center gap-2"><i data-lucide="paperclip" size="14"></i> 사진/파일 첨부</p>
                             <input type="file" id="m-file-input" class="text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-red-600 file:text-white hover:file:bg-red-700">
                         </div>
 
@@ -618,8 +621,8 @@
                     </div>`;
             } else if (type === 'viewBoard') {
                 const isNotice = currentState.currentPage === 'notice';
-                const collectionName = isNotice ? 'notices' : 'resources';
-                const item = currentState[collectionName].find(i => i.id === extra);
+                const colName = isNotice ? 'notices' : 'resources';
+                const item = currentState[colName].find(i => i.id === extra);
                 html = `<div class="animate-fade-in">
                     <div class="flex items-center gap-2 text-red-500 text-xs font-bold uppercase tracking-widest mb-2">
                         <i data-lucide="file-text" size="14"></i> ${isNotice ? '공지사항' : '자료실'}
@@ -703,7 +706,6 @@
             else if (type === 'recordDelete') col = `records_${currentState.currentRecordTab}`;
             else if (type === 'infoDelete') col = currentState.currentPage === 'attributes' ? 'characters' : 'extraInfo';
             else if (type === 'calendarDelete') col = 'schedules';
-
             if (col) await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', col, id));
             window.closeModal();
         };
@@ -715,11 +717,9 @@
             const collectionName = type === 'notice' ? 'notices' : 'resources';
             const titleEl = document.getElementById('m-title');
             if (!titleEl || !titleEl.value) return;
-            
             const fileInput = document.getElementById('m-file-input');
             const hasFile = fileInput && fileInput.files.length > 0;
             const id = currentState.editingId || Date.now().toString();
-            
             await setDoc(doc(db, 'artifacts', appId, 'public', 'data', collectionName, id), {
                 title: titleEl.value,
                 content: document.getElementById('m-content').value,
@@ -768,14 +768,18 @@
         window.updateCalendarEvent = async () => {
             const titleEl = document.getElementById('cal-edit-title');
             if (!titleEl || !titleEl.value) return;
-            const original = currentState.schedules.find(s => s.id === currentState.editingId);
-            await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'schedules', currentState.editingId), { ...original, title: titleEl.value });
+            const original = (currentState.schedules || []).find(s => s.id === currentState.editingId);
+            if(original) await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'schedules', currentState.editingId), { ...original, title: titleEl.value });
             window.closeModal();
         };
 
         window.editBoardItem = (t, id) => window.openModal('board', id);
         window.editRecord = (id) => window.openModal('record', id);
         window.editInfo = (id) => window.openModal('info', id);
+        window.searchInfoGrid = () => {
+            const term = document.getElementById('search-info').value.toLowerCase();
+            document.querySelectorAll('#info-grid > div').forEach(c => c.style.display = c.innerText.toLowerCase().includes(term) ? '' : 'none');
+        };
         window.toggleMobileMenu = () => {
             const n = document.getElementById('main-nav');
             if (n) {

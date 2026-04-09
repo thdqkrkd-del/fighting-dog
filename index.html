@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FIGHTING DOG | Premium Community</title>
+    <title>파이팅 독 | 프리미엄 커뮤니티</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&family=Oswald:wght@700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -48,7 +48,7 @@
 
         .pin-active { color: #ef4444; }
         .animate-fade-in { animation: fadeIn 0.8s ease-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         .attr-fire { background-color: #dc2626; }
         .attr-water { background-color: #2563eb; }
@@ -82,7 +82,6 @@
             display: flex; align-items: center; justify-content: center;
         }
 
-        /* Hero Image Style */
         .hero-img-container {
             display: flex;
             justify-content: center;
@@ -106,17 +105,17 @@
 <body>
 
     <div id="loading-overlay">
-        <div class="text-2xl font-black logo-font animate-pulse text-red-600">DOG HUB <span class="text-white">SYNCHRONIZING...</span></div>
+        <div class="text-2xl font-black logo-font animate-pulse text-red-600">독 허브 <span class="text-white">데이터 동기화 중...</span></div>
     </div>
 
     <!-- Navigation -->
     <nav class="fixed w-full z-50 glass-effect">
         <div class="max-w-[1500px] mx-auto flex justify-between items-center px-6 py-4">
             <div class="text-2xl font-black logo-font tracking-tighter shrink-0 mr-8 cursor-pointer" onclick="navigateTo('home')">
-                FIGHTING <span class="text-red-600">DOG</span>
+                파이팅 <span class="text-red-600">독</span>
             </div>
             <div id="main-nav" class="hidden lg:flex items-center space-x-1 text-gray-400 font-bold">
-                <div class="nav-item active" onclick="navigateTo('home')">HOME</div>
+                <div class="nav-item active" onclick="navigateTo('home')">홈</div>
                 <div class="nav-item" onclick="navigateTo('notice')">공지사항</div>
                 <div class="nav-item" onclick="navigateTo('resources')">자료실</div>
                 <div class="nav-item" onclick="navigateTo('records')">듀얼기록</div>
@@ -138,18 +137,18 @@
     <script id="tpl-home" type="text/template">
         <section class="hero-gradient min-h-[65vh] flex flex-col items-center justify-center text-center px-6 overflow-hidden">
             <div class="max-w-4xl animate-fade-in hero-img-container">
-                <!-- 텍스트 삭제 및 요청하신 이미지 배치 -->
-                <img src="image_743cd7.png" alt="FIGHTING DOG SYNDICATE" class="main-logo-img" 
+                <!-- PNG 로고 파일 적용 -->
+                <img src="image_743cd7.png" alt="파이팅 독 연합" class="main-logo-img" 
                      onerror="this.src='optimized.png';">
             </div>
         </section>
         <section class="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-2 gap-8">
             <div class="card-bg p-8 border-t-2 border-red-600 shadow-2xl">
-                <h3 class="text-xl font-bold mb-6 flex items-center gap-2 tracking-widest uppercase"><i data-lucide="zap" class="text-red-500"></i> Upcoming Task</h3>
+                <h3 class="text-xl font-bold mb-6 flex items-center gap-2 tracking-widest uppercase"><i data-lucide="zap" class="text-red-500"></i> 예정된 일정</h3>
                 <div id="upcoming-list" class="space-y-4"></div>
             </div>
             <div class="card-bg p-8 border-t-2 border-zinc-800">
-                <h3 class="text-xl font-bold mb-6 flex items-center gap-2 tracking-widest uppercase"><i data-lucide="history" class="text-gray-500"></i> Past Record</h3>
+                <h3 class="text-xl font-bold mb-6 flex items-center gap-2 tracking-widest uppercase"><i data-lucide="history" class="text-gray-500"></i> 지난 기록</h3>
                 <div id="past-list" class="space-y-4"></div>
             </div>
         </section>
@@ -158,18 +157,18 @@
     <script id="tpl-board" type="text/template">
         <div class="max-w-7xl mx-auto px-6 py-8 animate-fade-in">
             <div class="flex justify-between items-center mb-8">
-                <h2 class="text-3xl font-black italic logo-font decoration-red-600 decoration-4 underline underline-offset-8" id="board-title">ARCHIVE</h2>
+                <h2 class="text-3xl font-black italic logo-font decoration-red-600 decoration-4 underline underline-offset-8" id="board-title">보관함</h2>
                 <button onclick="openModal('board')" class="btn-red px-8 py-3 rounded-lg font-bold shadow-xl shadow-red-900/20">글쓰기</button>
             </div>
             <div class="card-bg overflow-hidden border border-white/5 shadow-2xl">
                 <table class="w-full text-left">
                     <thead class="bg-white/5 text-gray-500 text-xs font-black uppercase tracking-widest">
                         <tr>
-                            <th class="p-5 w-20 text-center">PIN</th>
-                            <th class="p-5">TITLE</th>
-                            <th class="p-5 w-40">DATE</th>
-                            <th class="p-5 w-24 text-center">FILE</th>
-                            <th class="p-5 w-32 text-center">ACTION</th>
+                            <th class="p-5 w-20 text-center">고정</th>
+                            <th class="p-5">제목</th>
+                            <th class="p-5 w-40">날짜</th>
+                            <th class="p-5 w-24 text-center">파일</th>
+                            <th class="p-5 w-32 text-center">관리</th>
                         </tr>
                     </thead>
                     <tbody id="board-content" class="divide-y divide-white/5"></tbody>
@@ -181,21 +180,21 @@
     <script id="tpl-records" type="text/template">
         <div class="max-w-7xl mx-auto px-6 py-8 animate-fade-in">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-                <h2 class="text-3xl font-black italic logo-font">DUAL RECORDS</h2>
+                <h2 class="text-3xl font-black italic logo-font">듀얼 기록실</h2>
                 <div class="flex gap-2 bg-white/5 p-1 rounded-lg">
                     <button onclick="switchRecordTab('team1')" id="tab-team1" class="px-6 py-2 rounded-md transition-all font-bold">1팀</button>
-                    <button onclick="switchRecordTab('team2')" id="tab-team2" class="px-6 py-2 rounded-md transition-all font-bold">2팀</button>
-                    <button onclick="switchRecordTab('siege')" id="tab-siege" class="px-6 py-2 rounded-md transition-all font-bold">공성전</button>
+                    <button onclick="switchRecordTab('team2')" id="tab-team2" class="px-4 py-2 rounded-md transition-all font-bold">2팀</button>
+                    <button onclick="switchRecordTab('siege')" id="tab-siege" class="px-4 py-2 rounded-md transition-all font-bold">공성전</button>
                 </div>
-                <button onclick="openModal('record')" class="btn-red px-8 py-3 rounded-lg font-bold">LOG DATA</button>
+                <button onclick="openModal('record')" class="btn-red px-8 py-3 rounded-lg font-bold">기록 추가</button>
             </div>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div class="lg:col-span-2 card-bg p-6 border border-white/5">
-                    <h4 class="text-lg font-bold mb-4 text-gray-400 uppercase tracking-widest">Efficiency Chart (Last 10)</h4>
+                    <h4 class="text-lg font-bold mb-4 text-gray-400 uppercase tracking-widest">전투 효율 그래프 (최근 10경기)</h4>
                     <canvas id="rankingChart" height="200"></canvas>
                 </div>
                 <div class="card-bg p-6 overflow-y-auto max-h-[500px] border border-white/5">
-                    <h4 class="text-lg font-bold mb-4 text-gray-400">Activity Log</h4>
+                    <h4 class="text-lg font-bold mb-4 text-gray-400">활동 로그</h4>
                     <div id="record-list" class="space-y-3"></div>
                 </div>
             </div>
@@ -205,7 +204,7 @@
     <script id="tpl-calendar" type="text/template">
         <div class="max-w-7xl mx-auto px-6 py-8 animate-fade-in">
             <div class="flex justify-between items-center mb-8">
-                <h2 class="text-3xl font-black italic logo-font">MISSION CALENDAR</h2>
+                <h2 class="text-3xl font-black italic logo-font">작전 캘린더</h2>
                 <div class="flex items-center gap-6 bg-white/5 p-2 rounded-full px-6 border border-white/5">
                     <button onclick="changeCalendarMonth(-1)" class="p-2 hover:text-red-500 transition-colors"><i data-lucide="chevron-left"></i></button>
                     <div class="text-2xl font-black logo-font text-red-500 min-w-[140px] text-center" id="calendar-header-title"></div>
@@ -214,7 +213,7 @@
             </div>
             <div class="card-bg p-4 border border-white/5 shadow-2xl">
                 <div class="grid grid-cols-7 gap-1 text-center font-black text-xs text-gray-600 mb-4 tracking-widest">
-                    <div class="p-2 text-red-900">SUN</div><div>MON</div><div>TUE</div><div>WED</div><div>THU</div><div>FRI</div><div class="text-blue-900">SAT</div>
+                    <div class="p-2 text-red-900">일</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div class="text-blue-900">토</div>
                 </div>
                 <div id="calendar-grid" class="grid grid-cols-7 gap-1"></div>
             </div>
@@ -228,20 +227,28 @@
                 <h2 class="text-2xl font-bold mb-4" id="protected-title">데이터 베이스</h2>
                 <p class="text-gray-500 mb-8 text-sm">기밀 정보 열람을 위해 인증 코드를 입력하십시오.</p>
                 <input type="password" id="pw-input" class="w-full bg-black/60 border border-white/10 rounded-lg p-4 mb-4 text-center text-2xl tracking-[1em] focus:border-red-600 focus:bg-black outline-none transition-all" placeholder="******">
-                <button onclick="verifyPassword()" class="w-full btn-red py-4 rounded-lg font-black text-lg">ENTER HUB</button>
+                <button onclick="verifyPassword()" class="w-full btn-red py-4 rounded-lg font-black text-lg">접속하기</button>
             </div>
             <div id="protected-content" class="hidden w-full animate-fade-in">
                 <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
-                    <h2 class="text-4xl font-black italic logo-font" id="content-title">SYNDICATE INTEL</h2>
+                    <h2 class="text-4xl font-black italic logo-font" id="content-title">연합 기밀 정보</h2>
                     <div class="flex gap-4 w-full md:w-auto">
                         <input type="text" id="search-info" onkeyup="window.searchInfoGrid()" placeholder="ID 또는 이름 검색..." class="flex-1 bg-white/5 border border-white/10 rounded-lg px-6 py-3 focus:border-red-500 outline-none">
-                        <button onclick="openModal('info')" class="btn-red px-8 py-3 rounded-lg font-bold shrink-0">ADD DATA</button>
+                        <button onclick="openModal('info')" class="btn-red px-8 py-3 rounded-lg font-bold shrink-0">데이터 추가</button>
                     </div>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="info-grid"></div>
             </div>
         </div>
     </script>
+
+    <!-- Modals -->
+    <div id="modal-overlay" class="fixed inset-0 bg-black/90 z-[100] hidden flex items-center justify-center p-6 backdrop-blur-md">
+        <div id="modal-container" class="card-bg w-full max-w-lg p-10 relative animate-fade-in border border-white/10 overflow-y-auto max-h-[90vh] shadow-2xl">
+            <button onclick="closeModal()" class="absolute top-6 right-6 text-gray-500 hover:text-white transition-all"><i data-lucide="x-circle" size="28"></i></button>
+            <div id="modal-body"></div>
+        </div>
+    </div>
 
     <!-- Firebase Scripts -->
     <script type="module">
@@ -264,7 +271,60 @@
         const auth = getAuth(app);
         const appId = 'fighting-dog-production';
 
-        // --- State Management ---
+        const initialCharacters = [
+            { name: "신마적", attrs: ["화", "풍"] }, { name: "리비노", attrs: ["수", "지"] }, { name: "구마적", attrs: ["수"] },
+            { name: "마아란", attrs: ["수", "지"] }, { name: "안기로", attrs: ["수", "지"] }, { name: "봉타류", attrs: ["지"] },
+            { name: "지민정", attrs: ["수", "지"] }, { name: "돌북이손빼라", attrs: ["수", "화"] }, { name: "어플", attrs: ["화", "풍"] },
+            { name: "엿", attrs: ["지", "풍"] }, { name: "엥흐어르걸", attrs: ["수", "화"] }, { name: "제우스", attrs: ["수", "화"] },
+            { name: "바람소년", attrs: ["지"] }, { name: "Zeus", attrs: ["지", "풍"] }, { name: "가드형", attrs: ["수"] },
+            { name: "양대핑", attrs: ["수", "화"] }, { name: "동따리", attrs: ["수", "화"] }, { name: "꽃술2", attrs: ["지"] },
+            { name: "T없게맑은Oroi", attrs: ["수", "지"] }, { name: "프로틴괴물", attrs: ["지", "풍"] }, { name: "도박은범죄", attrs: ["화"] },
+            { name: "여포", attrs: ["풍"] }, { name: "백상욱", attrs: ["수", "화"] }, { name: "캔", attrs: ["수", "화"] },
+            { name: "레미엘", attrs: ["수", "지"] }, { name: "르니", attrs: ["수", "지"] }, { name: "쥐", attrs: ["화"] },
+            { name: "BlackWolf", attrs: ["수"] }, { name: "가불형", attrs: ["지"] }, { name: "루미에르", attrs: ["화", "풍"] },
+            { name: "s+", attrs: ["지"] }, { name: "천월", attrs: ["수", "화"] }, { name: "GDragon", attrs: ["지"] },
+            { name: "석기미남", attrs: ["수"] }, { name: "슉이", attrs: ["수", "지"] }, { name: "민첩핑", attrs: ["수", "지"] },
+            { name: "순살", attrs: ["수"] }, { name: "최가불", attrs: ["수", "지"] }, { name: "제천주민", attrs: ["수", "지"] },
+            { name: "김뗑글", attrs: ["지"] }, { name: "백오이", attrs: ["수", "화"] }, { name: "인생술집", attrs: ["수", "지"] },
+            { name: "부르돈", attrs: ["지", "풍"] }, { name: "평양박치기", attrs: ["수", "지"] }, { name: "코드", attrs: ["수", "화"] },
+            { name: "blackbomb", attrs: ["수", "화"] }, { name: "느그형", attrs: ["수", "지"] }, { name: "한량이", attrs: ["수", "지"] },
+            { name: "꽃술", attrs: ["지"] }, { name: "조피엘", attrs: ["수", "지"] }, { name: "인연", attrs: ["수", "지"] },
+            { name: "살찐쭈꾸미", attrs: ["수", "지"] }, { name: "나타", attrs: ["수", "지"] }, { name: "시기", attrs: ["수", "지"] },
+            { name: "크랩", attrs: ["수", "지"] }, { name: "하야시", attrs: ["수", "지"] }, { name: "정상수", attrs: ["지"] },
+            { name: "니카", attrs: ["지"] }, { name: "귀오미", attrs: ["수", "화"] }, { name: "일곰", attrs: ["화", "풍"] },
+            { name: "★", attrs: ["수"] }, { name: "밤의황제", attrs: ["풍"] }, { name: "쿄", attrs: ["수", "지"] },
+            { name: "라파엘", attrs: ["지", "풍"] }, { name: "안수호", attrs: ["수", "지"] }, { name: "분노", attrs: ["수", "화"] },
+            { name: "해골", attrs: ["지", "풍"] }, { name: "보살", attrs: ["지", "풍"] }, { name: "대장곰", attrs: ["수", "지"] },
+            { name: "마아란2", attrs: ["수", "지"] }, { name: "샤샤핑", attrs: ["화", "풍"] }, { name: "배진형", attrs: ["지"] },
+            { name: "주술사", attrs: ["수", "지"] }, { name: "브리핑", attrs: ["지"] }, { name: "아나키스트88", attrs: ["수", "지"] },
+            { name: "꼬랑내", attrs: ["지"] }, { name: "김정은", attrs: ["수"] }, { name: "쇼기", attrs: ["화", "풍"] },
+            { name: "젖", attrs: ["지"] }, { name: "l한라l", attrs: ["수", "지"] }, { name: "오곰", attrs: ["수", "지"] },
+            { name: "아랑", attrs: ["수", "지"] }, { name: "베루", attrs: ["수"] }, { name: "Hebi", attrs: ["수", "지"] },
+            { name: "시바", attrs: ["화", "풍"] }, { name: "조팀장", attrs: ["풍"] }, { name: "치킨", attrs: ["수", "지"] },
+            { name: "사뿐핑", attrs: ["수", "화"] }, { name: "어플리", attrs: ["수", "지"] }, { name: "플라", attrs: ["수", "지"] },
+            { name: "온도", attrs: ["수", "지"] }, { name: "후야", attrs: ["수", "지"] }, { name: "ABCD", attrs: ["수"] },
+            { name: "폐인", attrs: ["수", "화"] }, { name: "연재아빠", attrs: ["수"] }, { name: "도사", attrs: ["수", "지"] },
+            { name: "무신", attrs: ["수", "지"] }, { name: "모나모", attrs: ["화", "풍"] }, { name: "양념반자르반", attrs: ["수", "지"] },
+            { name: "이누", attrs: ["수", "지"] }, { name: "빨리", attrs: ["지", "풍"] }, { name: "반기노", attrs: ["화", "풍"] },
+            { name: "대장", attrs: ["수", "화"] }, { name: "행운핑", attrs: ["수", "지"] }, { name: "악빠리", attrs: ["화", "풍"] },
+            { name: "워니", attrs: ["수", "지"] }, { name: "인생밥집", attrs: ["수", "지"] }, { name: "신라면", attrs: ["지"] },
+            { name: "공격형", attrs: ["지"] }, { name: "찬뚱", attrs: ["수", "지"] }, { name: "하루", attrs: ["수", "지"] },
+            { name: "부기", attrs: ["수", "지"] }, { name: "음율", attrs: ["수", "지"] }, { name: "맥루한", attrs: ["지", "풍"] },
+            { name: "테이저건", attrs: ["지"] }, { name: "빛나핑", attrs: ["수", "화"] }, { name: "강호두", attrs: ["수", "지"] },
+            { name: "네즈코", attrs: ["지"] }, { name: "로기", attrs: ["수", "지"] }, { name: "yami-kuru", attrs: ["수", "화"] },
+            { name: "광해군", attrs: ["수", "지"] }, { name: "알라신", attrs: ["수", "지"] }, { name: "순발핑", attrs: ["수", "지"] },
+            { name: "연재아빠빠", attrs: ["수"] }, { name: "곽사원", attrs: ["수", "화"] }, { name: "여우", attrs: ["수", "지"] },
+            { name: "대도", attrs: ["수", "지"] }, { name: "뚱", attrs: ["수", "지"] }, { name: "곰이", attrs: ["지"] },
+            { name: "천호", attrs: ["화", "풍"] }, { name: "이정재", attrs: ["지", "풍"] }, { name: "필립모리스", attrs: ["지", "풍"] },
+            { name: "야수", attrs: ["수", "지"] }, { name: "라구엘", attrs: ["수", "지"] }, { name: "faker", attrs: ["수"] },
+            { name: "blackhogu", attrs: ["지"] }, { name: "반보로", attrs: ["수", "지"] }, { name: "한량", attrs: ["화", "풍"] },
+            { name: "강타", attrs: ["수", "지"] }, { name: "밀", attrs: ["풍"] }, { name: "도르", attrs: ["풍"] },
+            { name: "맨발의대장", attrs: ["수", "지"] }, { name: "shiba", attrs: ["수", "지"] }, { name: "엄뽀리", attrs: ["화", "풍"] },
+            { name: "미카엘", attrs: ["수", "지"] }, { name: "곡", attrs: ["지"] }, { name: "달콤핑", attrs: ["화", "풍"] },
+            { name: "엇", attrs: ["수", "지"] }, { name: "낮", attrs: ["풍"] }, { name: "동탁", attrs: ["수", "화"] },
+            { name: "백일홍", attrs: ["수", "화"] }, { name: "졸", attrs: ["수", "지"] }
+        ];
+
         let currentState = {
             currentPage: 'home',
             isAuthorized: false,
@@ -283,7 +343,7 @@
         const ATTR_COLOR_MAP = { '화': 'attr-fire', '수': 'attr-water', '지': 'attr-earth', '풍': 'attr-wind' };
         const safeCreateIcons = () => { if (typeof lucide !== 'undefined') { lucide.createIcons(); } };
 
-        // --- Core UI Functions (Fixed Order to prevent ReferenceErrors) ---
+        // UI 함수들을 윈도우 전역에 먼저 정의
         window.initHome = () => {
             const now = new Date();
             const todayStr = now.toISOString().split('T')[0];
@@ -291,8 +351,8 @@
             const past = (currentState.schedules || []).filter(s => s.date < todayStr).sort((a,b) => b.date.localeCompare(a.date)).slice(0, 3);
             const upList = document.getElementById('upcoming-list');
             const paList = document.getElementById('past-list');
-            if (upList) upList.innerHTML = upcoming.map(s => `<div class="flex justify-between items-center p-4 border-b border-white/5 group hover:bg-white/5 transition-colors"><span>${s.title}</span><span class="text-xs text-red-500 font-bold font-mono">${s.date}</span></div>`).join('') || "<div class='p-4 text-zinc-600 text-sm italic'>NO UPCOMING TASKS</div>";
-            if (paList) paList.innerHTML = past.map(s => `<div class="flex justify-between items-center p-4 opacity-40"><span>${s.title}</span><span class="text-xs font-mono">${s.date}</span></div>`).join('') || "<div class='p-4 text-zinc-600 text-sm italic'>NO PAST RECORDS</div>";
+            if (upList) upList.innerHTML = upcoming.map(s => `<div class="flex justify-between items-center p-4 border-b border-white/5 group hover:bg-white/5 transition-colors"><span>${s.title}</span><span class="text-xs text-red-500 font-bold font-mono">${s.date}</span></div>`).join('') || "<div class='p-4 text-zinc-600 text-sm italic'>예정된 일정이 없습니다.</div>";
+            if (paList) paList.innerHTML = past.map(s => `<div class="flex justify-between items-center p-4 opacity-40"><span>${s.title}</span><span class="text-xs font-mono">${s.date}</span></div>`).join('') || "<div class='p-4 text-zinc-600 text-sm italic'>지난 기록이 없습니다.</div>";
             safeCreateIcons();
         };
 
@@ -301,6 +361,8 @@
             const data = currentState[col] || [];
             const sorted = [...data].sort((a,b) => b.pinned - a.pinned);
             const contentEl = document.getElementById('board-content');
+            const titleEl = document.getElementById('board-title');
+            if (titleEl) titleEl.innerText = type === 'notice' ? '공지사항' : '자료실';
             if (contentEl) contentEl.innerHTML = sorted.map(item => `
                 <tr class="hover:bg-white/5 group transition-all">
                     <td class="p-5 text-center">${item.pinned ? '<i data-lucide="pin" class="pin-active mx-auto" size="20"></i>' : '-'}</td>
@@ -308,8 +370,8 @@
                     <td class="p-5 text-sm text-zinc-500 font-mono">${item.date}</td>
                     <td class="p-5 text-center">${item.file ? '<i data-lucide="paperclip" size="18" class="mx-auto text-blue-500/50"></i>' : '-'}</td>
                     <td class="p-5 text-center space-x-6">
-                        <button onclick="window.editBoardItem('${type}', '${item.id}')" class="text-xs text-zinc-500 hover:text-white font-black uppercase tracking-tighter transition-colors">Edit</button>
-                        <button onclick="window.openConfirmModal('boardDelete', '${type}', '${item.id}')" class="text-xs text-zinc-800 hover:text-red-600 font-black uppercase tracking-tighter transition-colors">Terminate</button>
+                        <button onclick="window.editBoardItem('${type}', '${item.id}')" class="text-xs text-zinc-500 hover:text-white font-black uppercase tracking-tighter transition-colors">수정</button>
+                        <button onclick="window.openConfirmModal('boardDelete', '${type}', '${item.id}')" class="text-xs text-zinc-800 hover:text-red-600 font-black uppercase tracking-tighter transition-colors">삭제</button>
                     </td>
                 </tr>
             `).join('');
@@ -350,9 +412,9 @@
                     <div>${item.attrs ? `<div class="flex flex-wrap gap-1 mb-3">${item.attrs.map(a => `<span class="${ATTR_COLOR_MAP[a]} px-2 py-0.5 rounded text-[10px] font-bold text-white">${a}</span>`).join('')}</div>` : ''}
                         <h4 class="text-xl font-black">${item.name}</h4>${item.desc ? `<p class="text-xs text-zinc-500 mt-2 line-clamp-3">${item.desc}</p>` : ''}</div>
                     <div class="flex justify-end gap-3 pt-4 mt-4 border-t border-white/5">
-                        <button onclick="window.editInfo('${item.id}')" class="text-[10px] uppercase font-bold text-zinc-500 hover:text-blue-500 transition-colors">Edit</button>
-                        <button onclick="window.openConfirmModal('infoDelete', null, '${item.id}')" class="text-[10px] uppercase font-bold text-zinc-500 hover:text-red-500 transition-colors">Delete</button>
-                    </div></div>`).join('') || '<div class="col-span-full text-center py-20 opacity-30 italic font-bold">NO INTEL DATA FOUND.</div>';
+                        <button onclick="window.editInfo('${item.id}')" class="text-[10px] uppercase font-bold text-zinc-500 hover:text-blue-500 transition-colors">수정</button>
+                        <button onclick="window.openConfirmModal('infoDelete', null, '${item.id}')" class="text-[10px] uppercase font-bold text-zinc-500 hover:text-red-500 transition-colors">삭제</button>
+                    </div></div>`).join('') || '<div class="col-span-full text-center py-20 opacity-30 italic font-bold">허브에 데이터가 없습니다.</div>';
             safeCreateIcons();
         };
 
@@ -382,7 +444,6 @@
             if (gate && content) { gate.classList.add('hidden'); content.classList.remove('hidden'); window.renderProtectedGrid(); } 
         };
 
-        // --- Auth & Sync ---
         async function initSync() {
             const syncCollections = ['schedules', 'notices', 'resources', 'records_team1', 'records_team2', 'records_siege', 'characters', 'extraInfo'];
             syncCollections.forEach(colName => {
@@ -402,15 +463,22 @@
                     document.getElementById('loading-overlay').style.display = 'none';
                 });
             });
+
+            const charSnapshot = await getDocs(collection(db, 'artifacts', appId, 'public', 'data', 'characters'));
+            if (charSnapshot.empty) {
+                const batch = writeBatch(db);
+                initialCharacters.forEach(char => batch.set(doc(collection(db, 'artifacts', appId, 'public', 'data', 'characters')), { ...char, type: 'attr' }));
+                await batch.commit();
+            }
         }
 
         signInAnonymously(auth).then(() => { initSync(); window.navigateTo('home'); });
 
-        // --- Window-Scoped Action Handlers ---
+        // --- 윈도우 스코프 액션 핸들러 ---
         window.navigateTo = (pageId) => {
             currentState.currentPage = pageId;
             const navItems = document.querySelectorAll('.nav-item');
-            const navMap = { 'home': 'HOME', 'notice': '공지사항', 'resources': '자료실', 'records': '듀얼기록', 'calendar': '캘린더', 'attributes': '듀얼 속성', 'regular': '정규듀얼 정보', 'siege': '공성전 정보' };
+            const navMap = { 'home': '홈', 'notice': '공지사항', 'resources': '자료실', 'records': '듀얼기록', 'calendar': '캘린더', 'attributes': '듀얼 속성', 'regular': '정규듀얼 정보', 'siege': '공성전 정보' };
             navItems.forEach(el => el.classList.toggle('active', el.innerText === navMap[pageId]));
             window.renderContent();
             window.scrollTo(0, 0);
@@ -445,7 +513,7 @@
                 type: 'line',
                 data: {
                     labels: displayData.map(r => r.date),
-                    datasets: [{ label: 'Efficiency', data: displayData.map(r => RANK_MAP[r.rank]), borderColor: '#dc2626', backgroundColor: 'rgba(220, 38, 38, 0.1)', fill: true, tension: 0.4, pointRadius: 6, pointHoverRadius: 8, pointBackgroundColor: '#dc2626' }]
+                    datasets: [{ label: '전투 효율', data: displayData.map(r => RANK_MAP[r.rank]), borderColor: '#dc2626', backgroundColor: 'rgba(220, 38, 38, 0.1)', fill: true, tension: 0.4, pointRadius: 6, pointHoverRadius: 8, pointBackgroundColor: '#dc2626' }]
                 },
                 options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { min: 0, max: 7, ticks: { callback: (v) => Object.keys(RANK_MAP).find(k => RANK_MAP[k] === v) || '', color: '#555' }, grid: { color: 'rgba(255,255,255,0.02)' } }, x: { grid: { display: false }, ticks: { color: '#555' } } } }
             });
@@ -453,7 +521,7 @@
 
         window.changeCalendarMonth = (off) => { currentState.viewDate.setMonth(currentState.viewDate.getMonth() + off); window.initCalendar(); };
         window.openCalendarAddModal = (y, m, d) => window.openModal('calendarAdd', `${y}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`);
-        window.verifyPassword = () => { if (document.getElementById('pw-input').value === '191919') { currentState.isAuthorized = true; window.showProtectedContent(); } else alert('AUTH FAILED: ACCESS DENIED.'); };
+        window.verifyPassword = () => { if (document.getElementById('pw-input').value === '191919') { currentState.isAuthorized = true; window.showProtectedContent(); } else alert('인증 실패: 액세스가 거부되었습니다.'); };
         window.searchInfoGrid = () => {
             const term = document.getElementById('search-info').value.toLowerCase();
             document.querySelectorAll('#info-grid > div').forEach(c => c.style.display = c.innerText.toLowerCase().includes(term) ? '' : 'none');
@@ -467,53 +535,53 @@
                 const isNotice = currentState.currentPage === 'notice', col = isNotice ? 'notices' : 'resources';
                 const item = extra ? (currentState[col] || []).find(i => i.id === extra) : null;
                 currentState.editingId = extra;
-                html = `<h3 class="text-3xl font-black italic mb-6 text-red-600">${extra ? 'UPDATE DATA' : 'UPLOAD INTEL'}</h3>
+                html = `<h3 class="text-3xl font-black italic mb-6 text-red-600">${extra ? '정보 수정' : '정보 등록'}</h3>
                     <div class="space-y-4">
-                        <input type="text" id="m-title" value="${item?.title || ''}" placeholder="FILE TITLE" class="w-full bg-black border border-white/10 rounded-lg p-5 focus:border-red-600 outline-none">
-                        <textarea id="m-content" placeholder="SUMMARY..." class="w-full bg-black border border-white/10 rounded-lg p-5 h-48 focus:border-red-600 outline-none">${item?.content || ''}</textarea>
+                        <input type="text" id="m-title" value="${item?.title || ''}" placeholder="파일 제목" class="w-full bg-black border border-white/10 rounded-lg p-5 focus:border-red-600 outline-none">
+                        <textarea id="m-content" placeholder="상세 내용 요약..." class="w-full bg-black border border-white/10 rounded-lg p-5 h-48 focus:border-red-600 outline-none">${item?.content || ''}</textarea>
                         <div class="p-5 bg-white/5 border border-dashed border-white/10 rounded-lg"><input type="file" id="m-file-input" class="text-xs text-zinc-500"></div>
-                        <label class="flex items-center gap-3 text-xs text-zinc-400 cursor-pointer font-bold"><input type="checkbox" id="m-pin" ${item?.pinned ? 'checked' : ''} class="w-4 h-4 accent-red-600"> PIN TO TOP</label>
-                        <input type="password" id="m-pw" placeholder="SECRET CODE" class="w-full bg-black border border-white/10 rounded-lg p-5 text-center text-xl tracking-[0.5em] outline-none focus:border-red-600">
-                        <button onclick="window.saveBoard()" class="w-full btn-red py-5 rounded-lg font-black text-xl">DEPLOY</button></div>`;
+                        <label class="flex items-center gap-3 text-xs text-zinc-400 cursor-pointer font-bold"><input type="checkbox" id="m-pin" ${item?.pinned ? 'checked' : ''} class="w-4 h-4 accent-red-600"> 상단 고정</label>
+                        <input type="password" id="m-pw" placeholder="비밀번호 입력" class="w-full bg-black border border-white/10 rounded-lg p-5 text-center text-xl tracking-[0.5em] outline-none focus:border-red-600">
+                        <button onclick="window.saveBoard()" class="w-full btn-red py-5 rounded-lg font-black text-xl">등록하기</button></div>`;
             } else if (type === 'viewBoard') {
                 const isNotice = currentState.currentPage === 'notice', col = isNotice ? 'notices' : 'resources';
                 const item = (currentState[col] || []).find(i => i.id === extra);
-                html = `<div class="animate-fade-in"><div class="text-red-600 text-[10px] font-black uppercase tracking-[0.4em] mb-4">SYNDICATE ARCHIVE</div>
+                html = `<div class="animate-fade-in"><div class="text-red-600 text-[10px] font-black uppercase tracking-[0.4em] mb-4">연합 보관함</div>
                     <h3 class="text-4xl font-black italic mb-6 leading-tight">${item?.title}</h3>
-                    <div class="text-[10px] text-zinc-600 font-bold mb-8 flex justify-between border-b border-white/5 pb-4 uppercase tracking-widest"><span>Date: ${item?.date}</span>${item?.file ? '<span class="text-blue-500">Attached</span>' : ''}</div>
-                    <div class="text-zinc-300 leading-relaxed whitespace-pre-wrap min-h-[250px] mb-10 text-xl font-light">${item?.content || 'NO CONTENT.'}</div>
-                    <button onclick="window.closeModal()" class="w-full bg-white/5 py-5 rounded-lg font-black text-zinc-500 hover:text-white hover:bg-white/10 transition-all uppercase">Exit Hub</button></div>`;
+                    <div class="text-[10px] text-zinc-600 font-bold mb-8 flex justify-between border-b border-white/5 pb-4 uppercase tracking-widest"><span>날짜: ${item?.date}</span>${item?.file ? '<span class="text-blue-500">파일 첨부됨</span>' : ''}</div>
+                    <div class="text-zinc-300 leading-relaxed whitespace-pre-wrap min-h-[250px] mb-10 text-xl font-light">${item?.content || '내용이 없습니다.'}</div>
+                    <button onclick="window.closeModal()" class="w-full bg-white/5 py-5 rounded-lg font-black text-zinc-500 hover:text-white hover:bg-white/10 transition-all uppercase">나가기</button></div>`;
             } else if (type === 'record') {
                 const item = extra ? (currentState.records[currentState.currentRecordTab] || []).find(r => r.id === extra) : null;
                 currentState.editingId = extra;
-                html = `<h3 class="text-2xl font-black mb-6">LOG DUAL RECORD</h3>
+                html = `<h3 class="text-2xl font-black mb-6">듀얼 기록 로그</h3>
                     <div class="space-y-4">
                         <select id="r-rank" class="w-full bg-black border border-white/10 rounded-lg p-5 font-bold text-red-600">
                             ${Object.keys(RANK_MAP).map(k => `<option value="${k}" ${item?.rank === k ? 'selected' : ''}>${k}</option>`).join('')}
                         </select>
                         <input type="date" id="r-date" value="${item?.date || new Date().toISOString().split('T')[0]}" class="w-full bg-black border border-white/10 rounded-lg p-5">
-                        <button onclick="window.saveRecord()" class="w-full btn-red py-5 rounded-lg font-black">LOG ENTRY</button></div>`;
+                        <button onclick="window.saveRecord()" class="w-full btn-red py-4 rounded-lg font-black">기록 완료</button></div>`;
             } else if (type === 'info') {
                 const isAttr = currentState.currentPage === 'attributes', col = isAttr ? 'characters' : 'extraInfo';
                 const item = extra ? currentState[col].find(i => i.id === extra) : null;
                 currentState.editingId = extra;
-                html = `<h3 class="text-2xl font-black mb-6 uppercase tracking-widest">${extra ? 'EDIT' : 'ADD'} DATA</h3>
+                html = `<h3 class="text-2xl font-black mb-6 uppercase tracking-widest">${extra ? '데이터 수정' : '데이터 추가'}</h3>
                     <div class="space-y-4">
-                        <input type="text" id="i-name" value="${item?.name || ''}" placeholder="NAME / TEAM" class="w-full bg-black border border-white/10 rounded-lg p-5 focus:border-red-600 outline-none">
+                        <input type="text" id="i-name" value="${item?.name || ''}" placeholder="이름 / 팀명" class="w-full bg-black border border-white/10 rounded-lg p-5 focus:border-red-600 outline-none">
                         ${isAttr ? `<div class="grid grid-cols-4 gap-2">${['수', '지', '화', '풍'].map(a => `<label class="flex flex-col items-center gap-3 p-4 bg-white/5 rounded-xl cursor-pointer hover:bg-red-600/20 transition-all font-black text-sm"><input type="checkbox" name="attr" value="${a}" ${item?.attrs?.includes(a) ? 'checked' : ''} class="w-5 h-5 accent-red-600"> ${a}</label>`).join('')}</div>` 
-                        : `<textarea id="i-desc" placeholder="DETAILED INTEL..." class="w-full bg-black border border-white/10 rounded-lg p-5 h-48 focus:border-red-600 outline-none">${item?.desc || ''}</textarea>`}
-                        <button onclick="window.saveInfo()" class="w-full btn-red py-5 rounded-lg font-black mt-4">SYNC TO HUB</button></div>`;
+                        : `<textarea id="i-desc" placeholder="상세 정보..." class="w-full bg-black border border-white/10 rounded-lg p-5 h-48 focus:border-red-600 outline-none">${item?.desc || ''}</textarea>`}
+                        <button onclick="window.saveInfo()" class="w-full btn-red py-5 rounded-lg font-black mt-4">허브에 동기화</button></div>`;
             } else if (type === 'calendarAdd') {
-                html = `<h3 class="text-2xl font-black mb-6 uppercase italic tracking-wider">${extra} SCHEDULE</h3>
-                    <div class="space-y-4"><input type="text" id="cal-title" placeholder="TASK TITLE..." class="w-full bg-black border border-white/10 rounded-lg p-5 outline-none focus:border-red-600">
-                        <button onclick="window.saveCalendarEvent('${extra}')" class="w-full btn-red py-5 rounded-lg font-black">DEPLOY TASK</button></div>`;
+                html = `<h3 class="text-2xl font-black mb-6 uppercase italic tracking-wider">${extra} 일정 등록</h3>
+                    <div class="space-y-4"><input type="text" id="cal-title" placeholder="작전 제목..." class="w-full bg-black border border-white/10 rounded-lg p-5 outline-none focus:border-red-600">
+                        <button onclick="window.saveCalendarEvent('${extra}')" class="w-full btn-red py-5 rounded-lg font-black">일정 등록</button></div>`;
             } else if (type === 'calendarEdit') {
                 const item = currentState.schedules.find(s => s.id === extra);
                 currentState.editingId = extra;
-                html = `<h3 class="text-2xl font-black mb-6 uppercase">MODIFY MISSION</h3><div class="space-y-4">
+                html = `<h3 class="text-2xl font-black mb-6 uppercase">작전 수정</h3><div class="space-y-4">
                         <input type="text" id="cal-edit-title" value="${item?.title}" class="w-full bg-black border border-white/10 rounded-lg p-5 outline-none focus:border-red-600">
-                        <div class="flex gap-4"><button onclick="window.openConfirmModal('calendarDelete', null, '${extra}')" class="flex-1 py-5 rounded-lg bg-zinc-900 font-bold hover:bg-zinc-800 transition-colors uppercase">Terminate</button>
-                            <button onclick="window.updateCalendarEvent()" class="flex-1 btn-red py-5 rounded-lg font-black uppercase tracking-widest">Update</button></div></div>`;
+                        <div class="flex gap-4"><button onclick="window.openConfirmModal('calendarDelete', null, '${extra}')" class="flex-1 py-5 rounded-lg bg-zinc-900 font-bold hover:bg-zinc-800 transition-colors uppercase">삭제</button>
+                            <button onclick="window.updateCalendarEvent()" class="flex-1 btn-red py-5 rounded-lg font-black uppercase tracking-widest">업데이트</button></div></div>`;
             }
             body.innerHTML = html; safeCreateIcons();
         };
@@ -524,9 +592,9 @@
             const overlay = document.getElementById('modal-overlay'), body = document.getElementById('modal-body');
             overlay.classList.remove('hidden');
             body.innerHTML = `<div class="text-center py-6"><i data-lucide="alert-octagon" class="mx-auto text-red-600 mb-8" size="80"></i>
-                <h3 class="text-4xl font-black italic mb-2 uppercase tracking-tighter">Destroy Intel?</h3><p class="text-zinc-500 mb-12 font-bold tracking-tight">이 데이터는 즉시 소각되며 복구할 수 없습니다.</p>
-                <div class="flex gap-4"><button onclick="window.closeModal()" class="flex-1 py-5 rounded-lg bg-zinc-900 font-black tracking-widest">CANCEL</button>
-                    <button onclick="window.executeDelete('${type}', '${page}', '${id}')" class="flex-1 py-5 rounded-lg btn-red font-black tracking-widest">DESTROY</button></div></div>`;
+                <h3 class="text-4xl font-black italic mb-2 uppercase tracking-tighter">데이터를 파기하시겠습니까?</h3><p class="text-zinc-500 mb-12 font-bold tracking-tight">이 데이터는 즉시 소각되며 복구할 수 없습니다.</p>
+                <div class="flex gap-4"><button onclick="window.closeModal()" class="flex-1 py-5 rounded-lg bg-zinc-900 font-black tracking-widest">취소</button>
+                    <button onclick="window.executeDelete('${type}', '${page}', '${id}')" class="flex-1 py-5 rounded-lg btn-red font-black tracking-widest">파기 실행</button></div></div>`;
             safeCreateIcons();
         };
 
@@ -541,7 +609,7 @@
         };
 
         window.saveBoard = async () => {
-            if (document.getElementById('m-pw').value !== '191919') return alert('ACCESS DENIED: WRONG SECRET CODE.');
+            if (document.getElementById('m-pw').value !== '191919') return alert('인증 실패: 잘못된 비밀번호입니다.');
             const type = currentState.currentPage, col = type === 'notice' ? 'notices' : 'resources';
             const title = document.getElementById('m-title').value;
             if (!title) return;
@@ -593,6 +661,7 @@
         window.editBoardItem = (t, id) => window.openModal('board', id);
         window.editRecord = (id) => window.openModal('record', id);
         window.editInfo = (id) => window.openModal('info', id);
+        window.viewBoardItem = (type, id) => window.openModal('viewBoard', id);
     </script>
 </body>
 </html>

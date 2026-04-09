@@ -33,7 +33,7 @@
             font-weight: 700;
         }
         
-        .hero-gradient { background: radial-gradient(circle at 50% 50%, #7f1d1d 0%, #050505 100%); }
+        .hero-gradient { background: radial-gradient(circle at 50% 50%, #1a0505 0%, #050505 100%); }
         .card-bg { background: rgba(25, 25, 25, 0.6); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 12px; }
         
         ::-webkit-scrollbar { width: 6px; }
@@ -48,7 +48,7 @@
 
         .pin-active { color: #ef4444; }
         .animate-fade-in { animation: fadeIn 0.8s ease-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
         .attr-fire { background-color: #dc2626; }
         .attr-water { background-color: #2563eb; }
@@ -82,25 +82,31 @@
             display: flex; align-items: center; justify-content: center;
         }
 
-        .hero-logo-container {
-            position: relative;
+        /* Hero Image Style */
+        .hero-img-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 400px;
+            width: 100%;
+            min-height: 450px;
         }
-        .hero-logo {
-            max-width: 90%;
-            width: 600px;
+        .main-logo-img {
+            max-width: 95%;
+            width: 700px;
             height: auto;
-            filter: drop-shadow(0 0 40px rgba(220, 38, 38, 0.6));
+            filter: drop-shadow(0 0 50px rgba(220, 38, 38, 0.4));
+            animation: floating 4s ease-in-out infinite;
+        }
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
         }
     </style>
 </head>
 <body>
 
     <div id="loading-overlay">
-        <div class="text-2xl font-black logo-font animate-pulse">CONNECTING TO <span class="text-red-600">DOG HUB...</span></div>
+        <div class="text-2xl font-black logo-font animate-pulse text-red-600">DOG HUB <span class="text-white">SYNCHRONIZING...</span></div>
     </div>
 
     <!-- Navigation -->
@@ -109,7 +115,7 @@
             <div class="text-2xl font-black logo-font tracking-tighter shrink-0 mr-8 cursor-pointer" onclick="navigateTo('home')">
                 FIGHTING <span class="text-red-600">DOG</span>
             </div>
-            <div id="main-nav" class="hidden lg:flex items-center space-x-2 text-gray-400 font-bold">
+            <div id="main-nav" class="hidden lg:flex items-center space-x-1 text-gray-400 font-bold">
                 <div class="nav-item active" onclick="navigateTo('home')">HOME</div>
                 <div class="nav-item" onclick="navigateTo('notice')">공지사항</div>
                 <div class="nav-item" onclick="navigateTo('resources')">자료실</div>
@@ -130,20 +136,21 @@
 
     <!-- Templates -->
     <script id="tpl-home" type="text/template">
-        <section class="hero-gradient min-h-[60vh] flex items-center justify-center text-center px-6">
-            <div class="max-w-4xl animate-fade-in hero-logo-container">
-                <img src="c277ff29-ed70-43b8-a754-265cb540afa9.jpeg" alt="FIGHTING DOG LOGO" class="hero-logo" onerror="this.style.display='none'; document.getElementById('logo-text-fallback').style.display='block';">
-                <div id="logo-text-fallback" style="display:none;" class="text-7xl font-black italic logo-font text-red-600">FIGHTING DOG</div>
+        <section class="hero-gradient min-h-[65vh] flex flex-col items-center justify-center text-center px-6 overflow-hidden">
+            <div class="max-w-4xl animate-fade-in hero-img-container">
+                <!-- 텍스트 삭제 및 요청하신 이미지 배치 -->
+                <img src="image_74a257.jpg" alt="FIGHTING DOG SYNDICATE" class="main-logo-img" 
+                     onerror="this.src='c277ff29-ed70-43b8-a754-265cb540afa9.jpeg';">
             </div>
         </section>
         <section class="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="card-bg p-8">
-                <h3 class="text-xl font-bold mb-6 flex items-center"><i data-lucide="calendar-plus" class="mr-2 text-red-500"></i> 앞으로의 일정</h3>
-                <div id="upcoming-list" class="space-y-4 text-gray-400"></div>
+            <div class="card-bg p-8 border-t-2 border-red-600 shadow-2xl">
+                <h3 class="text-xl font-bold mb-6 flex items-center gap-2 tracking-widest uppercase"><i data-lucide="zap" class="text-red-500"></i> Upcoming Task</h3>
+                <div id="upcoming-list" class="space-y-4"></div>
             </div>
-            <div class="card-bg p-8">
-                <h3 class="text-xl font-bold mb-6 flex items-center"><i data-lucide="history" class="mr-2 text-gray-500"></i> 지난 일정</h3>
-                <div id="past-list" class="space-y-4 text-gray-600"></div>
+            <div class="card-bg p-8 border-t-2 border-zinc-800">
+                <h3 class="text-xl font-bold mb-6 flex items-center gap-2 tracking-widest uppercase"><i data-lucide="history" class="text-gray-500"></i> Past Record</h3>
+                <div id="past-list" class="space-y-4"></div>
             </div>
         </section>
     </script>
@@ -151,18 +158,18 @@
     <script id="tpl-board" type="text/template">
         <div class="max-w-7xl mx-auto px-6 py-8 animate-fade-in">
             <div class="flex justify-between items-center mb-8">
-                <h2 class="text-3xl font-bold" id="board-title">게시판</h2>
-                <button onclick="openModal('board')" class="btn-red px-6 py-2 rounded-lg font-bold">글쓰기</button>
+                <h2 class="text-3xl font-black italic logo-font decoration-red-600 decoration-4 underline underline-offset-8" id="board-title">ARCHIVE</h2>
+                <button onclick="openModal('board')" class="btn-red px-8 py-3 rounded-lg font-bold shadow-xl shadow-red-900/20">글쓰기</button>
             </div>
-            <div class="card-bg overflow-hidden">
+            <div class="card-bg overflow-hidden border border-white/5 shadow-2xl">
                 <table class="w-full text-left">
-                    <thead class="bg-white/5 text-gray-400 text-sm">
+                    <thead class="bg-white/5 text-gray-500 text-xs font-black uppercase tracking-widest">
                         <tr>
-                            <th class="p-4 w-16 text-center">PIN</th>
-                            <th class="p-4">제목</th>
-                            <th class="p-4 w-32">날짜</th>
-                            <th class="p-4 w-24">첨부</th>
-                            <th class="p-4 w-32 text-center">관리</th>
+                            <th class="p-5 w-20 text-center">PIN</th>
+                            <th class="p-5">TITLE</th>
+                            <th class="p-5 w-40">DATE</th>
+                            <th class="p-5 w-24 text-center">FILE</th>
+                            <th class="p-5 w-32 text-center">ACTION</th>
                         </tr>
                     </thead>
                     <tbody id="board-content" class="divide-y divide-white/5"></tbody>
@@ -171,25 +178,24 @@
         </div>
     </script>
 
-    <!-- Post Details Modal Template (Injectable) -->
     <script id="tpl-records" type="text/template">
         <div class="max-w-7xl mx-auto px-6 py-8 animate-fade-in">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-                <h2 class="text-3xl font-bold">듀얼 기록실</h2>
+                <h2 class="text-3xl font-black italic logo-font">DUAL RECORDS</h2>
                 <div class="flex gap-2 bg-white/5 p-1 rounded-lg">
-                    <button onclick="switchRecordTab('team1')" id="tab-team1" class="px-4 py-2 rounded-md transition-all">1팀</button>
-                    <button onclick="switchRecordTab('team2')" id="tab-team2" class="px-4 py-2 rounded-md transition-all">2팀</button>
-                    <button onclick="switchRecordTab('siege')" id="tab-siege" class="px-4 py-2 rounded-md transition-all">공성전</button>
+                    <button onclick="switchRecordTab('team1')" id="tab-team1" class="px-6 py-2 rounded-md transition-all font-bold">1팀</button>
+                    <button onclick="switchRecordTab('team2')" id="tab-team2" class="px-6 py-2 rounded-md transition-all font-bold">2팀</button>
+                    <button onclick="switchRecordTab('siege')" id="tab-siege" class="px-6 py-2 rounded-md transition-all font-bold">공성전</button>
                 </div>
-                <button onclick="openModal('record')" class="btn-red px-6 py-2 rounded-lg font-bold">기록 추가</button>
+                <button onclick="openModal('record')" class="btn-red px-8 py-3 rounded-lg font-bold">LOG DATA</button>
             </div>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <div class="lg:col-span-2 card-bg p-6">
-                    <h4 class="text-lg font-bold mb-4">순위 추이 그래프 (최근 10경기)</h4>
+                <div class="lg:col-span-2 card-bg p-6 border border-white/5">
+                    <h4 class="text-lg font-bold mb-4 text-gray-400 uppercase tracking-widest">Efficiency Chart (Last 10)</h4>
                     <canvas id="rankingChart" height="200"></canvas>
                 </div>
-                <div class="card-bg p-6 overflow-y-auto max-h-[500px]">
-                    <h4 class="text-lg font-bold mb-4">전체 기록 내역</h4>
+                <div class="card-bg p-6 overflow-y-auto max-h-[500px] border border-white/5">
+                    <h4 class="text-lg font-bold mb-4 text-gray-400">Activity Log</h4>
                     <div id="record-list" class="space-y-3"></div>
                 </div>
             </div>
@@ -199,16 +205,16 @@
     <script id="tpl-calendar" type="text/template">
         <div class="max-w-7xl mx-auto px-6 py-8 animate-fade-in">
             <div class="flex justify-between items-center mb-8">
-                <h2 class="text-3xl font-bold">커뮤니티 캘린더</h2>
-                <div class="flex items-center gap-6">
-                    <button onclick="changeCalendarMonth(-1)" class="p-2 hover:bg-white/10 rounded-full transition-colors"><i data-lucide="chevron-left"></i></button>
-                    <div class="text-2xl font-bold text-red-500 min-w-[120px] text-center" id="calendar-header-title"></div>
-                    <button onclick="changeCalendarMonth(1)" class="p-2 hover:bg-white/10 rounded-full transition-colors"><i data-lucide="chevron-right"></i></button>
+                <h2 class="text-3xl font-black italic logo-font">MISSION CALENDAR</h2>
+                <div class="flex items-center gap-6 bg-white/5 p-2 rounded-full px-6 border border-white/5">
+                    <button onclick="changeCalendarMonth(-1)" class="p-2 hover:text-red-500 transition-colors"><i data-lucide="chevron-left"></i></button>
+                    <div class="text-2xl font-black logo-font text-red-500 min-w-[140px] text-center" id="calendar-header-title"></div>
+                    <button onclick="changeCalendarMonth(1)" class="p-2 hover:text-red-500 transition-colors"><i data-lucide="chevron-right"></i></button>
                 </div>
             </div>
-            <div class="card-bg p-4">
-                <div class="grid grid-cols-7 gap-1 text-center font-bold text-gray-500 mb-2">
-                    <div class="p-2 text-red-500">SUN</div><div>MON</div><div>TUE</div><div>WED</div><div>THU</div><div>FRI</div><div class="text-blue-500">SAT</div>
+            <div class="card-bg p-4 border border-white/5 shadow-2xl">
+                <div class="grid grid-cols-7 gap-1 text-center font-black text-xs text-gray-600 mb-4 tracking-widest">
+                    <div class="p-2 text-red-900">SUN</div><div>MON</div><div>TUE</div><div>WED</div><div>THU</div><div>FRI</div><div class="text-blue-900">SAT</div>
                 </div>
                 <div id="calendar-grid" class="grid grid-cols-7 gap-1"></div>
             </div>
@@ -217,33 +223,25 @@
 
     <script id="tpl-protected" type="text/template">
         <div class="max-w-7xl mx-auto px-6 py-20 flex flex-center justify-center">
-            <div id="password-gate" class="card-bg p-12 text-center w-full max-w-md animate-fade-in">
-                <i data-lucide="lock" class="mx-auto mb-6 text-red-500" size="48"></i>
-                <h2 class="text-2xl font-bold mb-4" id="protected-title">보안 구역</h2>
-                <p class="text-gray-400 mb-8">입장하려면 비밀번호를 입력하십시오.</p>
-                <input type="password" id="pw-input" class="w-full bg-white/5 border border-white/10 rounded-lg p-3 mb-4 text-center text-xl tracking-widest focus:border-red-500 outline-none" placeholder="******">
-                <button onclick="verifyPassword()" class="w-full btn-red py-3 rounded-lg font-bold">입장하기</button>
+            <div id="password-gate" class="card-bg p-12 text-center w-full max-w-md animate-fade-in border-t-4 border-red-600 shadow-2xl shadow-red-900/10">
+                <i data-lucide="shield-check" class="mx-auto mb-6 text-red-600" size="64"></i>
+                <h2 class="text-2xl font-bold mb-4" id="protected-title">데이터 베이스</h2>
+                <p class="text-gray-500 mb-8 text-sm">기밀 정보 열람을 위해 인증 코드를 입력하십시오.</p>
+                <input type="password" id="pw-input" class="w-full bg-black/60 border border-white/10 rounded-lg p-4 mb-4 text-center text-2xl tracking-[1em] focus:border-red-600 focus:bg-black outline-none transition-all" placeholder="******">
+                <button onclick="verifyPassword()" class="w-full btn-red py-4 rounded-lg font-black text-lg">ENTER HUB</button>
             </div>
             <div id="protected-content" class="hidden w-full animate-fade-in">
                 <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
-                    <h2 class="text-3xl font-bold" id="content-title">정보 관리</h2>
+                    <h2 class="text-4xl font-black italic logo-font" id="content-title">SYNDICATE INTEL</h2>
                     <div class="flex gap-4 w-full md:w-auto">
-                        <input type="text" id="search-info" onkeyup="window.searchInfoGrid()" placeholder="검색어 입력..." class="flex-1 bg-white/5 border border-white/10 rounded-lg px-4 py-2 focus:border-red-500 outline-none">
-                        <button onclick="openModal('info')" class="btn-red px-6 py-2 rounded-lg font-bold shrink-0">추가하기</button>
+                        <input type="text" id="search-info" onkeyup="window.searchInfoGrid()" placeholder="ID 또는 이름 검색..." class="flex-1 bg-white/5 border border-white/10 rounded-lg px-6 py-3 focus:border-red-500 outline-none">
+                        <button onclick="openModal('info')" class="btn-red px-8 py-3 rounded-lg font-bold shrink-0">ADD DATA</button>
                     </div>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="info-grid"></div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="info-grid"></div>
             </div>
         </div>
     </script>
-
-    <!-- Modals -->
-    <div id="modal-overlay" class="fixed inset-0 bg-black/90 z-[100] hidden flex items-center justify-center p-6">
-        <div id="modal-container" class="card-bg w-full max-w-lg p-8 relative animate-fade-in border border-white/10 overflow-y-auto max-h-[90vh]">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white"><i data-lucide="x"></i></button>
-            <div id="modal-body"></div>
-        </div>
-    </div>
 
     <!-- Firebase Scripts -->
     <script type="module">
@@ -266,60 +264,7 @@
         const auth = getAuth(app);
         const appId = 'fighting-dog-production';
 
-        const initialCharacters = [
-            { name: "신마적", attrs: ["화", "풍"] }, { name: "리비노", attrs: ["수", "지"] }, { name: "구마적", attrs: ["수"] },
-            { name: "마아란", attrs: ["수", "지"] }, { name: "안기로", attrs: ["수", "지"] }, { name: "봉타류", attrs: ["지"] },
-            { name: "지민정", attrs: ["수", "지"] }, { name: "돌북이손빼라", attrs: ["수", "화"] }, { name: "어플", attrs: ["화", "풍"] },
-            { name: "엿", attrs: ["지", "풍"] }, { name: "엥흐어르걸", attrs: ["수", "화"] }, { name: "제우스", attrs: ["수", "화"] },
-            { name: "바람소년", attrs: ["지"] }, { name: "Zeus", attrs: ["지", "풍"] }, { name: "가드형", attrs: ["수"] },
-            { name: "양대핑", attrs: ["수", "화"] }, { name: "동따리", attrs: ["수", "화"] }, { name: "꽃술2", attrs: ["지"] },
-            { name: "T없게맑은Oroi", attrs: ["수", "지"] }, { name: "프로틴괴물", attrs: ["지", "풍"] }, { name: "도박은범죄", attrs: ["화"] },
-            { name: "여포", attrs: ["풍"] }, { name: "백상욱", attrs: ["수", "화"] }, { name: "캔", attrs: ["수", "화"] },
-            { name: "레미엘", attrs: ["수", "지"] }, { name: "르니", attrs: ["수", "지"] }, { name: "쥐", attrs: ["화"] },
-            { name: "BlackWolf", attrs: ["수"] }, { name: "가불형", attrs: ["지"] }, { name: "루미에르", attrs: ["화", "풍"] },
-            { name: "s+", attrs: ["지"] }, { name: "천월", attrs: ["수", "화"] }, { name: "GDragon", attrs: ["지"] },
-            { name: "석기미남", attrs: ["수"] }, { name: "슉이", attrs: ["수", "지"] }, { name: "민첩핑", attrs: ["수", "지"] },
-            { name: "순살", attrs: ["수"] }, { name: "최가불", attrs: ["수", "지"] }, { name: "제천주민", attrs: ["수", "지"] },
-            { name: "김뗑글", attrs: ["지"] }, { name: "백오이", attrs: ["수", "화"] }, { name: "인생술집", attrs: ["수", "지"] },
-            { name: "부르돈", attrs: ["지", "풍"] }, { name: "평양박치기", attrs: ["수", "지"] }, { name: "코드", attrs: ["수", "화"] },
-            { name: "blackbomb", attrs: ["수", "화"] }, { name: "느그형", attrs: ["수", "지"] }, { name: "한량이", attrs: ["수", "지"] },
-            { name: "꽃술", attrs: ["지"] }, { name: "조피엘", attrs: ["수", "지"] }, { name: "인연", attrs: ["수", "지"] },
-            { name: "살찐쭈꾸미", attrs: ["수", "지"] }, { name: "나타", attrs: ["수", "지"] }, { name: "시기", attrs: ["수", "지"] },
-            { name: "크랩", attrs: ["수", "지"] }, { name: "하야시", attrs: ["수", "지"] }, { name: "정상수", attrs: ["지"] },
-            { name: "니카", attrs: ["지"] }, { name: "귀오미", attrs: ["수", "화"] }, { name: "일곰", attrs: ["화", "풍"] },
-            { name: "★", attrs: ["수"] }, { name: "밤의황제", attrs: ["풍"] }, { name: "쿄", attrs: ["수", "지"] },
-            { name: "라파엘", attrs: ["지", "풍"] }, { name: "안수호", attrs: ["수", "지"] }, { name: "분노", attrs: ["수", "화"] },
-            { name: "해골", attrs: ["지", "풍"] }, { name: "보살", attrs: ["지", "풍"] }, { name: "대장곰", attrs: ["수", "지"] },
-            { name: "마아란2", attrs: ["수", "지"] }, { name: "샤샤핑", attrs: ["화", "풍"] }, { name: "배진형", attrs: ["지"] },
-            { name: "주술사", attrs: ["수", "지"] }, { name: "브리핑", attrs: ["지"] }, { name: "아나키스트88", attrs: ["수", "지"] },
-            { name: "꼬랑내", attrs: ["지"] }, { name: "김정은", attrs: ["수"] }, { name: "쇼기", attrs: ["화", "풍"] },
-            { name: "젖", attrs: ["지"] }, { name: "l한라l", attrs: ["수", "지"] }, { name: "오곰", attrs: ["수", "지"] },
-            { name: "아랑", attrs: ["수", "지"] }, { name: "베루", attrs: ["수"] }, { name: "Hebi", attrs: ["수", "지"] },
-            { name: "시바", attrs: ["화", "풍"] }, { name: "조팀장", attrs: ["풍"] }, { name: "치킨", attrs: ["수", "지"] },
-            { name: "사뿐핑", attrs: ["수", "화"] }, { name: "어플리", attrs: ["수", "지"] }, { name: "플라", attrs: ["수", "지"] },
-            { name: "온도", attrs: ["수", "지"] }, { name: "후야", attrs: ["수", "지"] }, { name: "ABCD", attrs: ["수"] },
-            { name: "폐인", attrs: ["수", "화"] }, { name: "연재아빠", attrs: ["수"] }, { name: "도사", attrs: ["수", "지"] },
-            { name: "무신", attrs: ["수", "지"] }, { name: "모나모", attrs: ["화", "풍"] }, { name: "양념반자르반", attrs: ["수", "지"] },
-            { name: "이누", attrs: ["수", "지"] }, { name: "빨리", attrs: ["지", "풍"] }, { name: "반기노", attrs: ["화", "풍"] },
-            { name: "대장", attrs: ["수", "화"] }, { name: "행운핑", attrs: ["수", "지"] }, { name: "악빠리", attrs: ["화", "풍"] },
-            { name: "워니", attrs: ["수", "지"] }, { name: "인생밥집", attrs: ["수", "지"] }, { name: "신라면", attrs: ["지"] },
-            { name: "공격형", attrs: ["지"] }, { name: "찬뚱", attrs: ["수", "지"] }, { name: "하루", attrs: ["수", "지"] },
-            { name: "부기", attrs: ["수", "지"] }, { name: "음율", attrs: ["수", "지"] }, { name: "맥루한", attrs: ["지", "풍"] },
-            { name: "테이저건", attrs: ["지"] }, { name: "빛나핑", attrs: ["수", "화"] }, { name: "강호두", attrs: ["수", "지"] },
-            { name: "네즈코", attrs: ["지"] }, { name: "로기", attrs: ["수", "지"] }, { name: "yami-kuru", attrs: ["수", "화"] },
-            { name: "광해군", attrs: ["수", "지"] }, { name: "알라신", attrs: ["수", "지"] }, { name: "순발핑", attrs: ["수", "지"] },
-            { name: "연재아빠빠", attrs: ["수"] }, { name: "곽사원", attrs: ["수", "화"] }, { name: "여우", attrs: ["수", "지"] },
-            { name: "대도", attrs: ["수", "지"] }, { name: "뚱", attrs: ["수", "지"] }, { name: "곰이", attrs: ["지"] },
-            { name: "천호", attrs: ["화", "풍"] }, { name: "이정재", attrs: ["지", "풍"] }, { name: "필립모리스", attrs: ["지", "풍"] },
-            { name: "야수", attrs: ["수", "지"] }, { name: "라구엘", attrs: ["수", "지"] }, { name: "faker", attrs: ["수"] },
-            { name: "blackhogu", attrs: ["지"] }, { name: "반보로", attrs: ["수", "지"] }, { name: "한량", attrs: ["화", "풍"] },
-            { name: "강타", attrs: ["수", "지"] }, { name: "밀", attrs: ["풍"] }, { name: "도르", attrs: ["풍"] },
-            { name: "맨발의대장", attrs: ["수", "지"] }, { name: "shiba", attrs: ["수", "지"] }, { name: "엄뽀리", attrs: ["화", "풍"] },
-            { name: "미카엘", attrs: ["수", "지"] }, { name: "곡", attrs: ["지"] }, { name: "달콤핑", attrs: ["화", "풍"] },
-            { name: "엇", attrs: ["수", "지"] }, { name: "낮", attrs: ["풍"] }, { name: "동탁", attrs: ["수", "화"] },
-            { name: "백일홍", attrs: ["수", "화"] }, { name: "졸", attrs: ["수", "지"] }
-        ];
-
+        // --- State Management ---
         let currentState = {
             currentPage: 'home',
             isAuthorized: false,
@@ -336,367 +281,252 @@
 
         const RANK_MAP = { '1등': 6, '2등': 5, '4강': 4, '8강': 3, '16강': 2, '32강': 1 };
         const ATTR_COLOR_MAP = { '화': 'attr-fire', '수': 'attr-water', '지': 'attr-earth', '풍': 'attr-wind' };
-
         const safeCreateIcons = () => { if (typeof lucide !== 'undefined') { lucide.createIcons(); } };
 
-        async function initSync() {
-            const mapping = {
-                'schedules': 'schedules',
-                'notices': 'notices',
-                'resources': 'resources',
-                'records_team1': 'records_team1',
-                'records_team2': 'records_team2',
-                'records_siege': 'records_siege',
-                'characters': 'characters',
-                'extraInfo': 'extraInfo'
-            };
-            
-            Object.keys(mapping).forEach(colName => {
-                const q = query(collection(db, 'artifacts', appId, 'public', 'data', colName));
-                onSnapshot(q, (snapshot) => {
-                    const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                    
-                    if (colName.startsWith('records_')) {
-                        const team = colName.replace('records_', '');
-                        currentState.records[team] = data;
-                        if (currentState.currentPage === 'records') window.switchRecordTab(currentState.currentRecordTab);
-                    } else {
-                        currentState[colName] = data;
-                    }
-                    
-                    renderContent();
-                    if (currentState.currentPage === 'home') initHome();
-                    document.getElementById('loading-overlay').style.display = 'none';
-                }, (error) => console.error(`Error syncing ${colName}:`, error));
-            });
-
-            const charSnapshot = await getDocs(collection(db, 'artifacts', appId, 'public', 'data', 'characters'));
-            if (charSnapshot.empty) {
-                const batch = writeBatch(db);
-                initialCharacters.forEach((char) => {
-                    const docRef = doc(collection(db, 'artifacts', appId, 'public', 'data', 'characters'));
-                    batch.set(docRef, { ...char, type: 'attr' });
-                });
-                await batch.commit();
-            }
-        }
-
-        signInAnonymously(auth).then(() => {
-            initSync();
-            window.navigateTo('home');
-        });
-
-        window.navigateTo = (pageId) => {
-            currentState.currentPage = pageId;
-            updateNavUI();
-            renderContent();
-            window.scrollTo(0, 0);
-        };
-
-        function updateNavUI() {
-            const pageId = currentState.currentPage;
-            const navItems = document.querySelectorAll('.nav-item');
-            const navMap = { 'home': 'HOME', 'notice': '공지사항', 'resources': '자료실', 'records': '듀얼기록', 'calendar': '캘린더', 'attributes': '듀얼 속성', 'regular': '정규듀얼 정보', 'siege': '공성전 정보' };
-            navItems.forEach(el => el.classList.toggle('active', el.innerText === navMap[pageId]));
-        }
-
-        function renderContent() {
-            const root = document.getElementById('app-root');
-            if (!root) return;
-            const pageId = currentState.currentPage;
-            
-            if (['attributes', 'regular', 'siege'].includes(pageId)) {
-                root.innerHTML = document.getElementById('tpl-protected').innerHTML;
-                const titleEl = document.getElementById('protected-title');
-                if (titleEl) titleEl.innerText = pageId === 'attributes' ? '듀얼 속성 정보' : pageId === 'regular' ? '정규듀얼 정보' : '공성전 정보';
-                if (currentState.isAuthorized) showProtectedContent();
-            } else {
-                const tplId = `tpl-${pageId === 'home' ? 'home' : (pageId === 'notice' || pageId === 'resources') ? 'board' : pageId}`;
-                const tpl = document.getElementById(tplId);
-                if (tpl) {
-                    root.innerHTML = tpl.innerHTML;
-                    if (pageId === 'home') initHome();
-                    else if (pageId === 'notice') initBoard('notice');
-                    else if (pageId === 'resources') initBoard('resources');
-                    else if (pageId === 'records') initRecords();
-                    else if (pageId === 'calendar') initCalendar();
-                }
-            }
-            safeCreateIcons();
-        }
-
-        function initHome() {
+        // --- Core UI Functions (Fixed Order to prevent ReferenceErrors) ---
+        window.initHome = () => {
             const now = new Date();
             const todayStr = now.toISOString().split('T')[0];
             const upcoming = (currentState.schedules || []).filter(s => s.date >= todayStr).sort((a,b) => a.date.localeCompare(b.date)).slice(0, 3);
             const past = (currentState.schedules || []).filter(s => s.date < todayStr).sort((a,b) => b.date.localeCompare(a.date)).slice(0, 3);
-            
-            const upEl = document.getElementById('upcoming-list');
-            const paEl = document.getElementById('past-list');
-            if (upEl) upEl.innerHTML = upcoming.map(s => `<div class="flex justify-between items-center p-4 border-b border-white/5"><span>${s.title}</span><span class="text-xs text-red-500">${s.date}</span></div>`).join('') || "예정된 일정이 없습니다.";
-            if (paEl) paEl.innerHTML = past.map(s => `<div class="flex justify-between items-center p-4 opacity-60"><span>${s.title}</span><span class="text-xs">${s.date}</span></div>`).join('') || "지난 일정이 없습니다.";
+            const upList = document.getElementById('upcoming-list');
+            const paList = document.getElementById('past-list');
+            if (upList) upList.innerHTML = upcoming.map(s => `<div class="flex justify-between items-center p-4 border-b border-white/5 group hover:bg-white/5 transition-colors"><span>${s.title}</span><span class="text-xs text-red-500 font-bold font-mono">${s.date}</span></div>`).join('') || "<div class='p-4 text-zinc-600 text-sm italic'>NO UPCOMING TASKS</div>";
+            if (paList) paList.innerHTML = past.map(s => `<div class="flex justify-between items-center p-4 opacity-40"><span>${s.title}</span><span class="text-xs font-mono">${s.date}</span></div>`).join('') || "<div class='p-4 text-zinc-600 text-sm italic'>NO PAST RECORDS</div>";
             safeCreateIcons();
-        }
+        };
 
-        function initBoard(type) {
-            const collectionName = type === 'notice' ? 'notices' : 'resources';
-            const data = currentState[collectionName] || [];
+        window.initBoard = (type) => {
+            const col = type === 'notice' ? 'notices' : 'resources';
+            const data = currentState[col] || [];
             const sorted = [...data].sort((a,b) => b.pinned - a.pinned);
             const contentEl = document.getElementById('board-content');
             if (contentEl) contentEl.innerHTML = sorted.map(item => `
-                <tr class="hover:bg-white/5 group">
-                    <td class="p-4 text-center">${item.pinned ? '<i data-lucide="pin" class="pin-active mx-auto" size="18"></i>' : '-'}</td>
-                    <td class="p-4 font-medium text-gray-200 group-hover:text-red-400 cursor-pointer" onclick="window.viewBoardItem('${type}', '${item.id}')">${item.title}</td>
-                    <td class="p-4 text-sm text-gray-500">${item.date}</td>
-                    <td class="p-4 text-center">${item.file ? '<i data-lucide="file-text" size="18" class="mx-auto text-gray-600"></i>' : ''}</td>
-                    <td class="p-4 text-center space-x-2">
-                        <button onclick="window.editBoardItem('${type}', '${item.id}')" class="text-xs text-blue-400 hover:underline">수정</button>
-                        <button onclick="window.openConfirmModal('boardDelete', '${type}', '${item.id}')" class="text-xs text-red-400 hover:underline">삭제</button>
+                <tr class="hover:bg-white/5 group transition-all">
+                    <td class="p-5 text-center">${item.pinned ? '<i data-lucide="pin" class="pin-active mx-auto" size="20"></i>' : '-'}</td>
+                    <td class="p-5 font-bold text-gray-200 group-hover:text-red-500 cursor-pointer text-lg" onclick="window.viewBoardItem('${type}', '${item.id}')">${item.title}</td>
+                    <td class="p-5 text-sm text-zinc-500 font-mono">${item.date}</td>
+                    <td class="p-5 text-center">${item.file ? '<i data-lucide="paperclip" size="18" class="mx-auto text-blue-500/50"></i>' : '-'}</td>
+                    <td class="p-5 text-center space-x-6">
+                        <button onclick="window.editBoardItem('${type}', '${item.id}')" class="text-xs text-zinc-500 hover:text-white font-black uppercase tracking-tighter transition-colors">Edit</button>
+                        <button onclick="window.openConfirmModal('boardDelete', '${type}', '${item.id}')" class="text-xs text-zinc-800 hover:text-red-600 font-black uppercase tracking-tighter transition-colors">Terminate</button>
                     </td>
                 </tr>
             `).join('');
             safeCreateIcons();
-        }
-
-        window.switchRecordTab = (tab) => {
-            currentState.currentRecordTab = tab;
-            ['team1', 'team2', 'siege'].forEach(t => {
-                const el = document.getElementById(`tab-${t}`);
-                if (el) el.className = t === tab ? 'px-4 py-2 rounded-md bg-red-600 text-white font-bold' : 'px-4 py-2 rounded-md text-gray-400 hover:text-white';
-            });
-            const data = currentState.records[tab] || [];
-            const listEl = document.getElementById('record-list');
-            if (listEl) listEl.innerHTML = data.slice().sort((a,b) => b.date.localeCompare(a.date)).map(r => `
-                <div class="flex justify-between items-center p-3 bg-white/5 rounded-lg border-l-4 border-red-600">
-                    <div><div class="text-xs text-gray-500">${r.date}</div><div class="font-bold text-red-400">${r.rank}</div></div>
-                    <div class="flex gap-2">
-                        <button onclick="window.editRecord('${r.id}')" class="text-xs text-gray-500 hover:text-white">수정</button>
-                        <button onclick="window.openConfirmModal('recordDelete', null, '${r.id}')" class="text-xs text-gray-500 hover:text-red-500">삭제</button>
-                    </div>
-                </div>
-            `).join('');
-            initChart(data);
-            safeCreateIcons();
         };
 
-        let myChart;
-        function initChart(data) {
-            const canvas = document.getElementById('rankingChart');
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            if (myChart) myChart.destroy();
-            const displayData = data.slice().sort((a,b) => a.date.localeCompare(b.date)).slice(-10);
-            myChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: displayData.map(r => r.date),
-                    datasets: [{ label: '순위', data: displayData.map(r => RANK_MAP[r.rank]), borderColor: '#dc2626', backgroundColor: 'rgba(220, 38, 38, 0.1)', fill: true, tension: 0.4, pointBackgroundColor: '#fff' }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        y: { min: 0, max: 7, ticks: { callback: (v) => Object.keys(RANK_MAP).find(k => RANK_MAP[k] === v) || '', color: '#555' }, grid: { color: 'rgba(255,255,255,0.05)' } },
-                        x: { grid: { display: false }, ticks: { color: '#555' } }
-                    }
-                }
-            });
-        }
-
-        function initCalendar() {
+        window.initCalendar = () => {
             const grid = document.getElementById('calendar-grid');
             const header = document.getElementById('calendar-header-title');
             if (!grid || !header) return;
-
-            const year = currentState.viewDate.getFullYear();
-            const month = currentState.viewDate.getMonth();
+            const year = currentState.viewDate.getFullYear(), month = currentState.viewDate.getMonth();
             header.innerText = `${year}.${String(month + 1).padStart(2, '0')}`;
-
-            const firstDay = new Date(year, month, 1).getDay();
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-            const today = new Date();
-            const isCurrentMonth = today.getFullYear() === year && today.getMonth() === month;
-
+            const firstDay = new Date(year, month, 1).getDay(), daysInMonth = new Date(year, month + 1, 0).getDate();
+            const today = new Date(), isCurrentMonth = today.getFullYear() === year && today.getMonth() === month;
             let html = '';
-            for (let i = 0; i < firstDay; i++) html += `<div class="aspect-square card-bg p-2 opacity-10"></div>`;
-
+            for (let i = 0; i < firstDay; i++) html += `<div class="aspect-square card-bg p-2 opacity-5"></div>`;
             for (let day = 1; day <= daysInMonth; day++) {
                 const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
                 const dayEvents = (currentState.schedules || []).filter(s => s.date === dateStr);
                 const isToday = isCurrentMonth && today.getDate() === day;
-                const dayOfWeek = (firstDay + day - 1) % 7;
-                const textColor = dayOfWeek === 0 ? 'text-red-500' : (dayOfWeek === 6 ? 'text-blue-500' : '');
-
-                let eventsHtml = dayEvents.map(s => `
-                    <div onclick="event.stopPropagation(); window.openModal('calendarEdit', '${s.id}')" class="cal-event-badge">${s.title}</div>
-                `).join('');
-
-                html += `<div onclick="window.openCalendarAddModal(${year}, ${month + 1}, ${day})" 
-                              class="aspect-square card-bg p-1 md:p-2 hover:border-red-500/50 cursor-pointer flex flex-col items-start transition-all relative ${isToday ? 'today-cell' : ''} overflow-hidden">
-                    <span class="text-xs font-bold ${textColor}">${day}</span>
-                    <div class="w-full mt-1">${eventsHtml}</div>
-                </div>`;
+                const textColor = (firstDay + day - 1) % 7 === 0 ? 'text-red-500' : ((firstDay + day - 1) % 7 === 6 ? 'text-blue-500' : 'text-zinc-400');
+                let eventsHtml = dayEvents.map(s => `<div onclick="event.stopPropagation(); window.openModal('calendarEdit', '${s.id}')" class="cal-event-badge">${s.title}</div>`).join('');
+                html += `<div onclick="window.openCalendarAddModal(${year}, ${month + 1}, ${day})" class="aspect-square card-bg p-2 hover:bg-zinc-900 transition-all relative ${isToday ? 'today-cell' : 'border border-white/[0.02]'} overflow-hidden">
+                    <span class="text-[10px] font-black ${textColor}">${day}</span><div class="w-full mt-1">${eventsHtml}</div></div>`;
             }
             grid.innerHTML = html;
             safeCreateIcons();
-        }
-
-        window.changeCalendarMonth = (offset) => {
-            currentState.viewDate.setMonth(currentState.viewDate.getMonth() + offset);
-            initCalendar();
         };
 
-        window.openCalendarAddModal = (y, m, d) => {
-            const dateStr = `${y}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-            window.openModal('calendarAdd', dateStr);
-        };
-
-        window.verifyPassword = () => {
-            if (document.getElementById('pw-input').value === '191919') { currentState.isAuthorized = true; showProtectedContent(); }
-            else alert('비밀번호가 틀렸습니다.');
-        };
-
-        function showProtectedContent() {
-            const gate = document.getElementById('password-gate');
-            const content = document.getElementById('protected-content');
-            if (gate && content) { gate.classList.add('hidden'); content.classList.remove('hidden'); renderProtectedGrid(); }
-        }
-
-        window.searchInfoGrid = () => {
-            const term = document.getElementById('search-info').value.toLowerCase();
-            document.querySelectorAll('#info-grid > div').forEach(c => {
-                const isMatch = c.innerText.toLowerCase().includes(term);
-                c.style.display = isMatch ? '' : 'none';
-            });
-        };
-
-        function renderProtectedGrid() {
+        window.renderProtectedGrid = () => {
             const grid = document.getElementById('info-grid');
             if (!grid) return;
             const page = currentState.currentPage;
             let data = page === 'attributes' ? currentState.characters : currentState.extraInfo.filter(i => i.type === page);
             data.sort((a,b) => a.name.localeCompare(b.name, 'ko'));
-
             grid.innerHTML = data.map(item => `
-                <div class="card-bg p-5 border-t-2 border-red-600 animate-fade-in flex flex-col justify-between">
-                    <div>
-                        ${item.attrs ? `<div class="flex flex-wrap gap-1 mb-3">${item.attrs.map(a => `<span class="${ATTR_COLOR_MAP[a]} px-2 py-0.5 rounded text-[10px] font-bold text-white">${a}</span>`).join('')}</div>` : ''}
-                        <h4 class="text-lg font-bold mb-2">${item.name}</h4>
-                        ${item.desc ? `<p class="text-sm text-gray-400 mb-4 line-clamp-3">${item.desc}</p>` : ''}
-                    </div>
-                    <div class="flex justify-end gap-3 pt-4 border-t border-white/5">
-                        <button onclick="window.editInfo('${item.id}')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1"><i data-lucide="edit-3" size="12"></i> 수정</button>
-                        <button onclick="window.openConfirmModal('infoDelete', null, '${item.id}')" class="text-xs text-gray-400 hover:text-red-500 flex items-center gap-1"><i data-lucide="trash-2" size="12"></i> 삭제</button>
-                    </div>
-                </div>
-            `).join('') || '<div class="col-span-full text-center py-20 opacity-30">데이터가 없습니다.</div>';
-            safeCreateIcons();
-        }
-
-        window.openModal = (type, extra = null) => {
-            const overlay = document.getElementById('modal-overlay');
-            const body = document.getElementById('modal-body');
-            overlay.classList.remove('hidden');
-            let html = '';
-            if (type === 'board') {
-                const isNotice = currentState.currentPage === 'notice';
-                const colName = isNotice ? 'notices' : 'resources';
-                const item = extra ? currentState[colName].find(i => i.id === extra) : null;
-                currentState.editingId = extra;
-                html = `<h3 class="text-2xl font-bold mb-6">${extra ? '게시물 수정' : '새 게시물 작성'}</h3>
-                    <div class="space-y-4">
-                        <input type="text" id="m-title" value="${item?.title || ''}" placeholder="제목" class="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:border-red-500 outline-none">
-                        <textarea id="m-content" placeholder="내용" class="w-full bg-white/5 border border-white/10 rounded-lg p-3 h-48 focus:border-red-500 outline-none">${item?.content || ''}</textarea>
-                        
-                        <div class="p-4 bg-white/5 border border-dashed border-white/20 rounded-lg">
-                            <p class="text-xs text-gray-500 mb-2 font-bold flex items-center gap-2"><i data-lucide="paperclip" size="14"></i> 사진/파일 첨부</p>
-                            <input type="file" id="m-file-input" class="text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-red-600 file:text-white hover:file:bg-red-700">
-                        </div>
-
-                        <label class="flex items-center gap-2 text-sm text-gray-400 cursor-pointer"><input type="checkbox" id="m-pin" ${item?.pinned ? 'checked' : ''} class="accent-red-600"> 상단 고정</label>
-                        <div class="p-3 bg-red-900/20 border border-red-600/30 rounded-lg">
-                            <input type="password" id="m-pw" placeholder="비밀번호 입력" class="w-full bg-black/40 border border-white/10 rounded-lg p-2 text-center outline-none focus:border-red-500">
-                        </div>
-                        <button onclick="window.saveBoard()" class="w-full btn-red py-3 rounded-lg font-bold">저장하기</button>
-                    </div>`;
-            } else if (type === 'viewBoard') {
-                const isNotice = currentState.currentPage === 'notice';
-                const colName = isNotice ? 'notices' : 'resources';
-                const item = currentState[colName].find(i => i.id === extra);
-                html = `<div class="animate-fade-in">
-                    <div class="flex items-center gap-2 text-red-500 text-xs font-bold uppercase tracking-widest mb-2">
-                        <i data-lucide="file-text" size="14"></i> ${isNotice ? '공지사항' : '자료실'}
-                    </div>
-                    <h3 class="text-3xl font-bold mb-4">${item?.title}</h3>
-                    <div class="text-sm text-gray-500 mb-8 pb-4 border-b border-white/10 flex justify-between">
-                        <span>날짜: ${item?.date}</span>
-                        ${item?.file ? '<span class="flex items-center gap-1 text-blue-400"><i data-lucide="paperclip" size="12"></i> 첨부파일 있음</span>' : ''}
-                    </div>
-                    <div class="text-gray-300 leading-relaxed whitespace-pre-wrap min-h-[150px] mb-8">${item?.content || '내용이 없습니다.'}</div>
-                    <button onclick="window.closeModal()" class="w-full btn-outline py-3 rounded-lg font-bold text-gray-400 hover:text-white">닫기</button>
-                </div>`;
-            } else if (type === 'record') {
-                const item = extra ? currentState.records[currentState.currentRecordTab].find(r => r.id === extra) : null;
-                currentState.editingId = extra;
-                html = `<h3 class="text-2xl font-bold mb-6">기록 ${extra ? '수정' : '추가'}</h3>
-                    <div class="space-y-4">
-                        <select id="r-rank" class="w-full bg-zinc-800 border border-white/10 rounded-lg p-3">
-                            ${Object.keys(RANK_MAP).map(k => `<option value="${k}" ${item?.rank === k ? 'selected' : ''}>${k}</option>`).join('')}
-                        </select>
-                        <input type="date" id="r-date" value="${item?.date || new Date().toISOString().split('T')[0]}" class="w-full bg-white/5 border border-white/10 rounded-lg p-3">
-                        <button onclick="window.saveRecord()" class="w-full btn-red py-3 rounded-lg font-bold">저장</button>
-                    </div>`;
-            } else if (type === 'info') {
-                const isAttr = currentState.currentPage === 'attributes';
-                const colName = isAttr ? 'characters' : 'extraInfo';
-                const item = extra ? currentState[colName].find(i => i.id === extra) : null;
-                currentState.editingId = extra;
-                html = `<h3 class="text-2xl font-bold mb-6">${extra ? '정보 수정' : '정보 추가'}</h3>
-                    <div class="space-y-4">
-                        <input type="text" id="i-name" value="${item?.name || ''}" placeholder="${isAttr ? '캐릭터 이름' : '팀 이름'}" class="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:border-red-500 outline-none">
-                        ${isAttr ? `<div class="grid grid-cols-2 gap-2 p-4 bg-white/5 rounded-lg">
-                            ${['수', '지', '화', '풍'].map(a => `<label class="flex items-center gap-2 cursor-pointer hover:text-red-500 transition-colors"><input type="checkbox" name="attr" value="${a}" ${item?.attrs?.includes(a) ? 'checked' : ''} class="accent-red-600"> ${a}</label>`).join('')}
-                        </div>` : `<textarea id="i-desc" placeholder="상세 내용" class="w-full bg-white/5 border border-white/10 rounded-lg p-3 h-48 focus:border-red-500 outline-none">${item?.desc || ''}</textarea>`}
-                        <button onclick="window.saveInfo()" class="w-full btn-red py-3 rounded-lg font-bold mt-4">저장 완료</button>
-                    </div>`;
-            } else if (type === 'calendarAdd') {
-                html = `<h3 class="text-2xl font-bold mb-6">${extra} 일정 등록</h3>
-                    <div class="space-y-4">
-                        <input type="text" id="cal-title" placeholder="일정 제목" class="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:border-red-500 outline-none">
-                        <button onclick="window.saveCalendarEvent('${extra}')" class="w-full btn-red py-3 rounded-lg font-bold">등록하기</button>
-                    </div>`;
-            } else if (type === 'calendarEdit') {
-                const item = currentState.schedules.find(s => s.id === extra);
-                currentState.editingId = extra;
-                html = `<h3 class="text-2xl font-bold mb-6">일정 수정</h3>
-                    <div class="space-y-4">
-                        <input type="text" id="cal-edit-title" value="${item?.title}" class="w-full bg-white/5 border border-white/10 rounded-lg p-3 outline-none focus:border-red-500">
-                        <div class="flex gap-4">
-                            <button onclick="window.openConfirmModal('calendarDelete', null, '${extra}')" class="flex-1 py-3 rounded-lg bg-white/10 font-bold hover:bg-white/20">삭제</button>
-                            <button onclick="window.updateCalendarEvent()" class="flex-1 btn-red py-3 rounded-lg font-bold">저장</button>
-                        </div>
-                    </div>`;
-            }
-            body.innerHTML = html;
+                <div class="card-bg p-5 border-t-2 border-red-600 animate-fade-in flex flex-col justify-between hover:scale-[1.02] transition-transform">
+                    <div>${item.attrs ? `<div class="flex flex-wrap gap-1 mb-3">${item.attrs.map(a => `<span class="${ATTR_COLOR_MAP[a]} px-2 py-0.5 rounded text-[10px] font-bold text-white">${a}</span>`).join('')}</div>` : ''}
+                        <h4 class="text-xl font-black">${item.name}</h4>${item.desc ? `<p class="text-xs text-zinc-500 mt-2 line-clamp-3">${item.desc}</p>` : ''}</div>
+                    <div class="flex justify-end gap-3 pt-4 mt-4 border-t border-white/5">
+                        <button onclick="window.editInfo('${item.id}')" class="text-[10px] uppercase font-bold text-zinc-500 hover:text-blue-500 transition-colors">Edit</button>
+                        <button onclick="window.openConfirmModal('infoDelete', null, '${item.id}')" class="text-[10px] uppercase font-bold text-zinc-500 hover:text-red-500 transition-colors">Delete</button>
+                    </div></div>`).join('') || '<div class="col-span-full text-center py-20 opacity-30 italic font-bold">NO INTEL DATA FOUND.</div>';
             safeCreateIcons();
         };
 
-        window.viewBoardItem = (type, id) => window.openModal('viewBoard', id);
+        window.renderContent = () => {
+            const root = document.getElementById('app-root');
+            if (!root) return;
+            const pageId = currentState.currentPage;
+            if (['attributes', 'regular', 'siege'].includes(pageId)) {
+                root.innerHTML = document.getElementById('tpl-protected').innerHTML;
+                if (currentState.isAuthorized) window.showProtectedContent();
+            } else {
+                const tplId = `tpl-${pageId === 'home' ? 'home' : (pageId === 'notice' || pageId === 'resources') ? 'board' : pageId}`;
+                const tpl = document.getElementById(tplId);
+                if (tpl) {
+                    root.innerHTML = tpl.innerHTML;
+                    if (pageId === 'home') window.initHome();
+                    else if (pageId === 'notice' || pageId === 'resources') window.initBoard(pageId);
+                    else if (pageId === 'records') window.switchRecordTab(currentState.currentRecordTab);
+                    else if (pageId === 'calendar') window.initCalendar();
+                }
+            }
+            safeCreateIcons();
+        };
+
+        window.showProtectedContent = () => { 
+            const gate = document.getElementById('password-gate'), content = document.getElementById('protected-content');
+            if (gate && content) { gate.classList.add('hidden'); content.classList.remove('hidden'); window.renderProtectedGrid(); } 
+        };
+
+        // --- Auth & Sync ---
+        async function initSync() {
+            const syncCollections = ['schedules', 'notices', 'resources', 'records_team1', 'records_team2', 'records_siege', 'characters', 'extraInfo'];
+            syncCollections.forEach(colName => {
+                const q = query(collection(db, 'artifacts', appId, 'public', 'data', colName));
+                onSnapshot(q, (snapshot) => {
+                    const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                    if (colName.startsWith('records_')) {
+                        currentState.records[colName.replace('records_', '')] = data;
+                        if (currentState.currentPage === 'records') window.switchRecordTab(currentState.currentRecordTab);
+                    } else {
+                        currentState[colName] = data;
+                        if (currentState.currentPage === 'notice' || currentState.currentPage === 'resources') window.initBoard(currentState.currentPage);
+                        else if (currentState.currentPage === 'attributes' || currentState.currentPage === 'regular' || currentState.currentPage === 'siege') window.renderProtectedGrid();
+                    }
+                    if (currentState.currentPage === 'home') window.initHome();
+                    else if (currentState.currentPage === 'calendar') window.initCalendar();
+                    document.getElementById('loading-overlay').style.display = 'none';
+                });
+            });
+        }
+
+        signInAnonymously(auth).then(() => { initSync(); window.navigateTo('home'); });
+
+        // --- Window-Scoped Action Handlers ---
+        window.navigateTo = (pageId) => {
+            currentState.currentPage = pageId;
+            const navItems = document.querySelectorAll('.nav-item');
+            const navMap = { 'home': 'HOME', 'notice': '공지사항', 'resources': '자료실', 'records': '듀얼기록', 'calendar': '캘린더', 'attributes': '듀얼 속성', 'regular': '정규듀얼 정보', 'siege': '공성전 정보' };
+            navItems.forEach(el => el.classList.toggle('active', el.innerText === navMap[pageId]));
+            window.renderContent();
+            window.scrollTo(0, 0);
+        };
+
+        window.switchRecordTab = (tab) => {
+            currentState.currentRecordTab = tab;
+            ['team1', 'team2', 'siege'].forEach(t => {
+                const el = document.getElementById(`tab-${t}`);
+                if (el) el.className = t === tab ? 'px-8 py-3 rounded-lg bg-red-600 text-white font-black shadow-lg shadow-red-900/30' : 'px-8 py-3 rounded-lg text-zinc-500 hover:text-white font-bold transition-all';
+            });
+            const data = currentState.records[tab] || [];
+            const listEl = document.getElementById('record-list');
+            if (listEl) listEl.innerHTML = data.slice().sort((a,b) => b.date.localeCompare(a.date)).map(r => `
+                <div class="flex justify-between items-center p-5 bg-black/40 rounded-xl border border-white/[0.03] hover:border-red-600/30 transition-all">
+                    <div><div class="text-[10px] text-zinc-600 font-mono mb-1 uppercase">${r.date}</div><div class="font-black text-2xl text-red-600 tracking-tighter">${r.rank}</div></div>
+                    <div class="flex gap-4">
+                        <button onclick="window.editRecord('${r.id}')" class="text-zinc-600 hover:text-blue-500 transition-colors"><i data-lucide="edit-3" size="18"></i></button>
+                        <button onclick="window.openConfirmModal('recordDelete', null, '${r.id}')" class="text-zinc-600 hover:text-red-500 transition-colors"><i data-lucide="trash-2" size="18"></i></button>
+                    </div>
+                </div>`).join('');
+            window.initChart(data);
+            safeCreateIcons();
+        };
+
+        window.initChart = (data) => {
+            const ctx = document.getElementById('rankingChart')?.getContext('2d');
+            if (!ctx) return;
+            if (window.myChartInstance) window.myChartInstance.destroy();
+            const displayData = data.slice().sort((a,b) => a.date.localeCompare(b.date)).slice(-10);
+            window.myChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: displayData.map(r => r.date),
+                    datasets: [{ label: 'Efficiency', data: displayData.map(r => RANK_MAP[r.rank]), borderColor: '#dc2626', backgroundColor: 'rgba(220, 38, 38, 0.1)', fill: true, tension: 0.4, pointRadius: 6, pointHoverRadius: 8, pointBackgroundColor: '#dc2626' }]
+                },
+                options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { min: 0, max: 7, ticks: { callback: (v) => Object.keys(RANK_MAP).find(k => RANK_MAP[k] === v) || '', color: '#555' }, grid: { color: 'rgba(255,255,255,0.02)' } }, x: { grid: { display: false }, ticks: { color: '#555' } } } }
+            });
+        };
+
+        window.changeCalendarMonth = (off) => { currentState.viewDate.setMonth(currentState.viewDate.getMonth() + off); window.initCalendar(); };
+        window.openCalendarAddModal = (y, m, d) => window.openModal('calendarAdd', `${y}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`);
+        window.verifyPassword = () => { if (document.getElementById('pw-input').value === '191919') { currentState.isAuthorized = true; window.showProtectedContent(); } else alert('AUTH FAILED: ACCESS DENIED.'); };
+        window.searchInfoGrid = () => {
+            const term = document.getElementById('search-info').value.toLowerCase();
+            document.querySelectorAll('#info-grid > div').forEach(c => c.style.display = c.innerText.toLowerCase().includes(term) ? '' : 'none');
+        };
+
+        window.openModal = (type, extra = null) => {
+            const overlay = document.getElementById('modal-overlay'), body = document.getElementById('modal-body');
+            overlay.classList.remove('hidden');
+            let html = '';
+            if (type === 'board') {
+                const isNotice = currentState.currentPage === 'notice', col = isNotice ? 'notices' : 'resources';
+                const item = extra ? (currentState[col] || []).find(i => i.id === extra) : null;
+                currentState.editingId = extra;
+                html = `<h3 class="text-3xl font-black italic mb-6 text-red-600">${extra ? 'UPDATE DATA' : 'UPLOAD INTEL'}</h3>
+                    <div class="space-y-4">
+                        <input type="text" id="m-title" value="${item?.title || ''}" placeholder="FILE TITLE" class="w-full bg-black border border-white/10 rounded-lg p-5 focus:border-red-600 outline-none">
+                        <textarea id="m-content" placeholder="SUMMARY..." class="w-full bg-black border border-white/10 rounded-lg p-5 h-48 focus:border-red-600 outline-none">${item?.content || ''}</textarea>
+                        <div class="p-5 bg-white/5 border border-dashed border-white/10 rounded-lg"><input type="file" id="m-file-input" class="text-xs text-zinc-500"></div>
+                        <label class="flex items-center gap-3 text-xs text-zinc-400 cursor-pointer font-bold"><input type="checkbox" id="m-pin" ${item?.pinned ? 'checked' : ''} class="w-4 h-4 accent-red-600"> PIN TO TOP</label>
+                        <input type="password" id="m-pw" placeholder="SECRET CODE" class="w-full bg-black border border-white/10 rounded-lg p-5 text-center text-xl tracking-[0.5em] outline-none focus:border-red-600">
+                        <button onclick="window.saveBoard()" class="w-full btn-red py-5 rounded-lg font-black text-xl">DEPLOY</button></div>`;
+            } else if (type === 'viewBoard') {
+                const isNotice = currentState.currentPage === 'notice', col = isNotice ? 'notices' : 'resources';
+                const item = (currentState[col] || []).find(i => i.id === extra);
+                html = `<div class="animate-fade-in"><div class="text-red-600 text-[10px] font-black uppercase tracking-[0.4em] mb-4">SYNDICATE ARCHIVE</div>
+                    <h3 class="text-4xl font-black italic mb-6 leading-tight">${item?.title}</h3>
+                    <div class="text-[10px] text-zinc-600 font-bold mb-8 flex justify-between border-b border-white/5 pb-4 uppercase tracking-widest"><span>Date: ${item?.date}</span>${item?.file ? '<span class="text-blue-500">Attached</span>' : ''}</div>
+                    <div class="text-zinc-300 leading-relaxed whitespace-pre-wrap min-h-[250px] mb-10 text-xl font-light">${item?.content || 'NO CONTENT.'}</div>
+                    <button onclick="window.closeModal()" class="w-full bg-white/5 py-5 rounded-lg font-black text-zinc-500 hover:text-white hover:bg-white/10 transition-all uppercase">Exit Hub</button></div>`;
+            } else if (type === 'record') {
+                const item = extra ? (currentState.records[currentState.currentRecordTab] || []).find(r => r.id === extra) : null;
+                currentState.editingId = extra;
+                html = `<h3 class="text-2xl font-black mb-6">LOG DUAL RECORD</h3>
+                    <div class="space-y-4">
+                        <select id="r-rank" class="w-full bg-black border border-white/10 rounded-lg p-5 font-bold text-red-600">
+                            ${Object.keys(RANK_MAP).map(k => `<option value="${k}" ${item?.rank === k ? 'selected' : ''}>${k}</option>`).join('')}
+                        </select>
+                        <input type="date" id="r-date" value="${item?.date || new Date().toISOString().split('T')[0]}" class="w-full bg-black border border-white/10 rounded-lg p-5">
+                        <button onclick="window.saveRecord()" class="w-full btn-red py-5 rounded-lg font-black">LOG ENTRY</button></div>`;
+            } else if (type === 'info') {
+                const isAttr = currentState.currentPage === 'attributes', col = isAttr ? 'characters' : 'extraInfo';
+                const item = extra ? currentState[col].find(i => i.id === extra) : null;
+                currentState.editingId = extra;
+                html = `<h3 class="text-2xl font-black mb-6 uppercase tracking-widest">${extra ? 'EDIT' : 'ADD'} DATA</h3>
+                    <div class="space-y-4">
+                        <input type="text" id="i-name" value="${item?.name || ''}" placeholder="NAME / TEAM" class="w-full bg-black border border-white/10 rounded-lg p-5 focus:border-red-600 outline-none">
+                        ${isAttr ? `<div class="grid grid-cols-4 gap-2">${['수', '지', '화', '풍'].map(a => `<label class="flex flex-col items-center gap-3 p-4 bg-white/5 rounded-xl cursor-pointer hover:bg-red-600/20 transition-all font-black text-sm"><input type="checkbox" name="attr" value="${a}" ${item?.attrs?.includes(a) ? 'checked' : ''} class="w-5 h-5 accent-red-600"> ${a}</label>`).join('')}</div>` 
+                        : `<textarea id="i-desc" placeholder="DETAILED INTEL..." class="w-full bg-black border border-white/10 rounded-lg p-5 h-48 focus:border-red-600 outline-none">${item?.desc || ''}</textarea>`}
+                        <button onclick="window.saveInfo()" class="w-full btn-red py-5 rounded-lg font-black mt-4">SYNC TO HUB</button></div>`;
+            } else if (type === 'calendarAdd') {
+                html = `<h3 class="text-2xl font-black mb-6 uppercase italic tracking-wider">${extra} SCHEDULE</h3>
+                    <div class="space-y-4"><input type="text" id="cal-title" placeholder="TASK TITLE..." class="w-full bg-black border border-white/10 rounded-lg p-5 outline-none focus:border-red-600">
+                        <button onclick="window.saveCalendarEvent('${extra}')" class="w-full btn-red py-5 rounded-lg font-black">DEPLOY TASK</button></div>`;
+            } else if (type === 'calendarEdit') {
+                const item = currentState.schedules.find(s => s.id === extra);
+                currentState.editingId = extra;
+                html = `<h3 class="text-2xl font-black mb-6 uppercase">MODIFY MISSION</h3><div class="space-y-4">
+                        <input type="text" id="cal-edit-title" value="${item?.title}" class="w-full bg-black border border-white/10 rounded-lg p-5 outline-none focus:border-red-600">
+                        <div class="flex gap-4"><button onclick="window.openConfirmModal('calendarDelete', null, '${extra}')" class="flex-1 py-5 rounded-lg bg-zinc-900 font-bold hover:bg-zinc-800 transition-colors uppercase">Terminate</button>
+                            <button onclick="window.updateCalendarEvent()" class="flex-1 btn-red py-5 rounded-lg font-black uppercase tracking-widest">Update</button></div></div>`;
+            }
+            body.innerHTML = html; safeCreateIcons();
+        };
+
         window.closeModal = () => { document.getElementById('modal-overlay').classList.add('hidden'); currentState.editingId = null; };
 
         window.openConfirmModal = (type, page, id) => {
-            const overlay = document.getElementById('modal-overlay');
-            const body = document.getElementById('modal-body');
+            const overlay = document.getElementById('modal-overlay'), body = document.getElementById('modal-body');
             overlay.classList.remove('hidden');
-            body.innerHTML = `<div class="text-center py-6">
-                <i data-lucide="alert-triangle" class="mx-auto text-red-500 mb-4" size="48"></i>
-                <h3 class="text-2xl font-bold mb-2">정말 삭제하시겠습니까?</h3>
-                <p class="text-gray-400 mb-8">이 작업은 서버에서 즉시 제거됩니다.</p>
-                <div class="flex gap-4">
-                    <button onclick="window.closeModal()" class="flex-1 py-3 rounded-lg bg-white/10 font-bold">취소</button>
-                    <button onclick="window.executeDelete('${type}', '${page}', '${id}')" class="flex-1 py-3 rounded-lg btn-red font-bold">삭제 실행</button>
-                </div>
-            </div>`;
+            body.innerHTML = `<div class="text-center py-6"><i data-lucide="alert-octagon" class="mx-auto text-red-600 mb-8" size="80"></i>
+                <h3 class="text-4xl font-black italic mb-2 uppercase tracking-tighter">Destroy Intel?</h3><p class="text-zinc-500 mb-12 font-bold tracking-tight">이 데이터는 즉시 소각되며 복구할 수 없습니다.</p>
+                <div class="flex gap-4"><button onclick="window.closeModal()" class="flex-1 py-5 rounded-lg bg-zinc-900 font-black tracking-widest">CANCEL</button>
+                    <button onclick="window.executeDelete('${type}', '${page}', '${id}')" class="flex-1 py-5 rounded-lg btn-red font-black tracking-widest">DESTROY</button></div></div>`;
             safeCreateIcons();
         };
 
@@ -711,81 +541,58 @@
         };
 
         window.saveBoard = async () => {
-            const pwInput = document.getElementById('m-pw');
-            if (pwInput && pwInput.value !== '191919') return alert('비밀번호가 올바르지 않습니다.');
-            const type = currentState.currentPage;
-            const collectionName = type === 'notice' ? 'notices' : 'resources';
-            const titleEl = document.getElementById('m-title');
-            if (!titleEl || !titleEl.value) return;
-            const fileInput = document.getElementById('m-file-input');
-            const hasFile = fileInput && fileInput.files.length > 0;
+            if (document.getElementById('m-pw').value !== '191919') return alert('ACCESS DENIED: WRONG SECRET CODE.');
+            const type = currentState.currentPage, col = type === 'notice' ? 'notices' : 'resources';
+            const title = document.getElementById('m-title').value;
+            if (!title) return;
+            const hasFile = document.getElementById('m-file-input')?.files?.length > 0;
             const id = currentState.editingId || Date.now().toString();
-            await setDoc(doc(db, 'artifacts', appId, 'public', 'data', collectionName, id), {
-                title: titleEl.value,
-                content: document.getElementById('m-content').value,
-                pinned: document.getElementById('m-pin').checked,
-                date: new Date().toISOString().split('T')[0],
-                file: hasFile
-            });
+            await setDoc(doc(db, 'artifacts', appId, 'public', 'data', col, id), { title, content: document.getElementById('m-content').value, pinned: document.getElementById('m-pin').checked, date: new Date().toISOString().split('T')[0], file: hasFile });
             window.closeModal();
         };
 
         window.saveRecord = async () => {
-            const team = currentState.currentRecordTab;
-            const id = currentState.editingId || Date.now().toString();
-            await setDoc(doc(db, 'artifacts', appId, 'public', 'data', `records_${team}`, id), {
-                rank: document.getElementById('r-rank').value,
-                date: document.getElementById('r-date').value
-            });
+            const team = currentState.currentRecordTab, id = currentState.editingId || Date.now().toString();
+            await setDoc(doc(db, 'artifacts', appId, 'public', 'data', `records_${team}`, id), { rank: document.getElementById('r-rank').value, date: document.getElementById('r-date').value });
             window.closeModal();
         };
 
         window.saveInfo = async () => {
             const page = currentState.currentPage, isAttr = page === 'attributes';
-            const nameEl = document.getElementById('i-name');
-            if (!nameEl || !nameEl.value) return;
+            const name = document.getElementById('i-name').value;
+            if (!name) return;
             const id = currentState.editingId || Date.now().toString();
-            let data = { name: nameEl.value, type: page };
-            if (isAttr) {
-                data.attrs = Array.from(document.querySelectorAll('input[name="attr"]:checked')).map(el => el.value);
-                data.type = 'attr';
-            } else {
-                data.desc = document.getElementById('i-desc').value;
-            }
-            const colName = isAttr ? 'characters' : 'extraInfo';
-            await setDoc(doc(db, 'artifacts', appId, 'public', 'data', colName, id), data);
+            let data = { name, type: page };
+            if (isAttr) { data.attrs = Array.from(document.querySelectorAll('input[name="attr"]:checked')).map(el => el.value); data.type = 'attr'; }
+            else data.desc = document.getElementById('i-desc').value;
+            const col = isAttr ? 'characters' : 'extraInfo';
+            await setDoc(doc(db, 'artifacts', appId, 'public', 'data', col, id), data);
             window.closeModal();
         };
 
         window.saveCalendarEvent = async (dateStr) => {
-            const titleEl = document.getElementById('cal-title');
-            if (!titleEl || !titleEl.value) return;
-            const id = Date.now().toString();
-            await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'schedules', id), { title: titleEl.value, date: dateStr });
+            const title = document.getElementById('cal-title').value;
+            if (!title) return;
+            await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'schedules', Date.now().toString()), { title, date: dateStr });
             window.closeModal();
         };
 
         window.updateCalendarEvent = async () => {
-            const titleEl = document.getElementById('cal-edit-title');
-            if (!titleEl || !titleEl.value) return;
+            const title = document.getElementById('cal-edit-title').value;
+            if (!title) return;
             const original = (currentState.schedules || []).find(s => s.id === currentState.editingId);
-            if(original) await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'schedules', currentState.editingId), { ...original, title: titleEl.value });
+            if(original) await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'schedules', currentState.editingId), { ...original, title });
             window.closeModal();
+        };
+
+        window.toggleMobileMenu = () => {
+            const n = document.getElementById('main-nav');
+            if (n) { n.classList.toggle('hidden'); n.classList.toggle('flex'); n.classList.toggle('flex-col'); n.classList.toggle('absolute'); n.classList.toggle('top-full'); n.classList.toggle('left-0'); n.classList.toggle('w-full'); n.classList.toggle('bg-black'); n.classList.toggle('p-6'); }
         };
 
         window.editBoardItem = (t, id) => window.openModal('board', id);
         window.editRecord = (id) => window.openModal('record', id);
         window.editInfo = (id) => window.openModal('info', id);
-        window.searchInfoGrid = () => {
-            const term = document.getElementById('search-info').value.toLowerCase();
-            document.querySelectorAll('#info-grid > div').forEach(c => c.style.display = c.innerText.toLowerCase().includes(term) ? '' : 'none');
-        };
-        window.toggleMobileMenu = () => {
-            const n = document.getElementById('main-nav');
-            if (n) {
-                n.classList.toggle('hidden'); n.classList.toggle('flex'); n.classList.toggle('flex-col'); n.classList.toggle('absolute'); n.classList.toggle('top-full'); n.classList.toggle('left-0'); n.classList.toggle('w-full'); n.classList.toggle('bg-black'); n.classList.toggle('p-6');
-            }
-        };
     </script>
 </body>
 </html>
